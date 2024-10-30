@@ -19,7 +19,7 @@ export async function load({ request }: RequestEvent) {
 	return {
 		isAuthenticated,
 		user: {
-			name: user.given_name + ' ' + user.family_name || user.email,
+			name: user?.given_name + ' ' + user?.family_name || user.email,
 			nameFallback:
 				user.given_name.slice(0, 1).toUpperCase() + user.family_name.slice(0, 1).toUpperCase(),
 			img: user.picture,
