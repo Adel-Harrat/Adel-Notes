@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import NoteCard from '../components/NoteCard.svelte';
 	import NewNoteCard from '../components/NewNoteCard.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
