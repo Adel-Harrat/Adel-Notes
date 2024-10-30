@@ -9,9 +9,7 @@
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check . && eslint .",
-		"format": "prettier --write .",
-		"postinstall": "prisma generate",
-		"vercel-build": "prisma generate && prisma migrate deploy && next build"
+		"format": "prettier --write ."
 	},
 	"devDependencies": {
 		"@sveltejs/kit": "^2.0.0",
