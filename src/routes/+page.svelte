@@ -2,10 +2,18 @@
 	import NoteCard from '../components/NoteCard.svelte';
 	import NewNoteCard from '../components/NewNoteCard.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
+
+	// const { data } = $props();
+
+	// const { notes } = data;
 </script>
 
+<svelte:head>
+	<title>Our Notes</title>
+</svelte:head>
+
 <section>
-	<h1 class="text-3xl text-gray-900 my-5">Our Notes</h1>
+	<h1 class="text-3xl font-bold tracking-tight text-gray-900 my-6">Our Notes</h1>
 	<div class="grid grid-cols-4 gap-4">
 		<NewNoteCard />
 		<NoteCard />

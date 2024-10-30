@@ -7,9 +7,11 @@
 
 	const {
 		name,
+		nameFallback,
 		img
 	}: {
 		name: string;
+		nameFallback: string;
 		img: string;
 	} = $props();
 </script>
@@ -33,7 +35,7 @@
 			<DropdownMenu.Trigger>
 				<Avatar.Root>
 					<Avatar.Image src={img} alt={`Image of ${name}`} />
-					<Avatar.Fallback>{name.slice(0, 2).toUpperCase()}</Avatar.Fallback>
+					<Avatar.Fallback>{nameFallback}</Avatar.Fallback>
 				</Avatar.Root>
 			</DropdownMenu.Trigger>
 			<DropdownMenu.Content>

@@ -2,6 +2,8 @@
 	// your script goes here
 </script>
 
-<section>
-	<p>You can now see your labels!</p>
-</section>
+<svelte:head>
+	<title>Labels</title>
+</svelte:head>
+
+<h1 class="text-3xl font-bold tracking-tight text-gray-900 my-6">Labels</h1>
