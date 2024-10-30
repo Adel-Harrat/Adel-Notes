@@ -20,10 +20,7 @@ export async function load({ request }: RequestEvent) {
 		isAuthenticated,
 		user: {
 			name: user?.given_name + ' ' + user?.family_name || user.email,
-			nameFallback:
-				user?.given_name?.slice(0, 1).toUpperCase() ||
-				'' + user?.family_name?.slice(0, 1).toUpperCase() ||
-				'',
+			nameFallback: `${(user?.given_name?.[0] || '').toUpperCase()}${(user?.family_name?.[0] || '').toUpperCase()}`,
 			img: user.picture,
 			id: user.id
 		},
