@@ -8,27 +8,27 @@
 </script>
 
 <ul class="flex flex-col items-center justify-center gap-6 mt-10 text-left px-5">
-	<Link>
+	<Link href="/">
 		<Lightbulb />
 		Notes
 	</Link>
 
-	<Link>
+	<Link href="/favorites">
 		<Star />
 		Favorite
 	</Link>
 
-	<Link>
+	<Link href="/labels">
 		<Tag />
-		Edit labels
+		Labels
 	</Link>
 
-	<Link>
+	<Link href="/archive">
 		<Archive />
 		Archive
 	</Link>
 
-	<Link>
+	<Link href="/trash">
 		<Trash />
 		Trash
 	</Link>
