@@ -1,6 +1,8 @@
-<script>
+<script lang="ts">
+	import Time from 'svelte-time';
 	import { Star } from 'lucide-svelte';
-	let isStared = false;
+	let isStared = $state(false);
+	const props = $props();
 </script>
 
 <article class="bg-white rounded-md group shadow overflow-hidden cursor-pointer">
@@ -10,12 +12,15 @@
 	</div>
 	<div class="p-4">
 		<div class="flex items-start justify-between">
-			<h2 class="font-normal text-gray-900 text-sm">Important things for Oran</h2>
+			<h2 class="font-normal text-gray-900 text-sm">{props.note.title}</h2>
 			<Star
 				onclick={() => (isStared = !isStared)}
-				class={`size-5 text-gray-500 mt-1 invisible group-hover:visible text-blue-600 cursor-pointer ${isStared ? 'fill-blue-600' : ''}`}
+				class={`size-5 text-gray-500 mt-1 invisible group-hover:visible cursor-pointer ${isStared ? 'fill-blue-600' : ''}`}
 			/>
 		</div>
-		<p class="invisible group-hover:visible text-gray-500 text-xs">You, about 02 weeks ago</p>
+		<p class="invisible group-hover:visible text-gray-500 text-xs">
+			About
+			<Time relative timestamp={props.note.createdAt} />
+		</p>
 	</div>
 </article>
