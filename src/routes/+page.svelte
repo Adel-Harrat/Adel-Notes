@@ -3,6 +3,7 @@
 	import NewNoteCard from '../components/NewNoteCard.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import type { PageServerData } from './$types';
+	import { fade } from 'svelte/transition';
 
 	let { data }: { data: PageServerData } = $props();
 </script>

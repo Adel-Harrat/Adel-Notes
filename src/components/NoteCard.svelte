@@ -5,11 +5,12 @@
 	const props = $props();
 </script>
 
-<article class="bg-white rounded-md group shadow overflow-hidden cursor-pointer">
-	<div class="relative bg-yellow-50">
-		<img src="/placeholder/1.svg" alt="" />
+<article class="bg-white rounded-md group shadow overflow-hidden cursor-pointer flex flex-col">
+	<div class="relative bg-yellow-50 flex-1">
+		<img src={props.note.image} alt="note pic" class="size-full" />
 		<div class="bg-black/50 absolute inset-0 invisible group-hover:visible"></div>
 	</div>
+
 	<div class="p-4">
 		<div class="flex items-start justify-between">
 			<h2 class="font-normal text-gray-900 text-sm">{props.note.title}</h2>

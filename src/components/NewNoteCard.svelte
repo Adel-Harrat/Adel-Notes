@@ -18,7 +18,7 @@
 <form action="?/addNewNote" method="POST" use:enhance={handleSubmit}>
 	<button type="submit" class="size-full">
 		<article
-			class="text-white flex items-center justify-center flex-col gap-5 rounded-md group shadow bg-blue-600 hover:bg-blue-800 cursor-pointer min-h-52 active:bg-blue-900"
+			class="text-white flex items-center justify-center flex-col gap-5 rounded-md group shadow bg-blue-600 hover:bg-blue-800 cursor-pointer active:bg-blue-900 size-full"
 		>
 			<Plus class="size-10" />
 			<span class="text-sm">New Note</span>
