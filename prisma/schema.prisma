@@ -24,9 +24,10 @@ enum NoteStatus {
 
 model Note {
   id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String
   title     String
   image     String?
-  content   String
+  content   String?
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   status    NoteStatus @default(NORMAL)

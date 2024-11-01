@@ -4,12 +4,12 @@
 	import { Plus } from 'lucide-svelte';
 
 	function handleSubmit() {
+		// TODO: Fix typescript error
 		return async ({ result }) => {
 			if (result.type === 'success') {
-				console.log('Note added');
 				await invalidateAll();
 			} else if (result.type === 'error') {
-				console.log('Not not added');
+				// TODO: Show error or something
 			}
 		};
 	}

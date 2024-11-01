@@ -8,7 +8,7 @@ export async function load({ request }: RequestEvent) {
 	);
 
 	if (!isAuthenticated) {
-		redirect(307, '/api/auth/login');
+		redirect(307, '/api/auth/register');
 	}
 
 	const user = await kindeAuthClient.getUser(request as unknown as SessionManager);

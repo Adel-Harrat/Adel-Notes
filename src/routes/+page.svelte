@@ -3,17 +3,16 @@
 	import NewNoteCard from '../components/NewNoteCard.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import type { PageServerData } from './$types';
-	import { fade } from 'svelte/transition';
 
 	let { data }: { data: PageServerData } = $props();
 </script>
 
 <svelte:head>
-	<title>Our Notes</title>
+	<title>Adel Notes</title>
 </svelte:head>
 
 <section>
-	<h1 class="text-3xl font-bold tracking-tight text-gray-900 my-6">Our Notes</h1>
+	<h1 class="text-3xl font-bold tracking-tight text-gray-900 my-6">Our Note</h1>
 	<div class="grid grid-cols-4 gap-4">
 		<NewNoteCard />
 		{#each data.notes as note}
@@ -25,3 +24,9 @@
 		<Button variant="link">Load More Notes</Button>
 	</div>
 </section>
+
+<!-- TODO:-->
+<!-- 1. Add default Image when user has none -->
+<!-- 2. Fix fallback name (because Ive removed first and last name) -->
+<!-- 3. Add custom error 500 and 404 pages  -->
+<!-- 4. Disbale new note button after clicking once -->
