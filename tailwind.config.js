@@ -1,4 +1,4 @@
-import { fontFamily } from 'tailwindcss/defaultTheme';
+// import { fontFamily } from 'tailwindcss/defaultTheme';
 
 /** @type {import('tailwindcss').Config} */
 const config = {
@@ -58,7 +58,8 @@ const config = {
 				sm: 'calc(var(--radius) - 4px)'
 			}
 		}
-	}
+	},
+	plugins: [require('@tailwindcss/forms')]
 };
 
 export default config;

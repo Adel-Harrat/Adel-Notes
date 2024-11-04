@@ -5,7 +5,11 @@
 @tailwind utilities;
 
 * {
-	font-family: 'Inter', serif;
+	@apply font-display;
+}
+
+body {
+	@apply bg-muted;
 }
 
 @layer base {

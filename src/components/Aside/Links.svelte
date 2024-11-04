@@ -10,7 +10,7 @@
 <ul class="flex flex-col items-center justify-center gap-6 mt-10 text-left px-5">
 	<Link href="/">
 		<Lightbulb />
-		Our Notes
+		Home
 	</Link>
 
 	<Link href="/favorites">
