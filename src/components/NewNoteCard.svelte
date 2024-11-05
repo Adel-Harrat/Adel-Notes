@@ -15,7 +15,7 @@
 	}
 </script>
 
-<form action="?/addNewNote" method="POST" use:enhance={handleSubmit}>
+<form action="?/addNewNote" method="POST" use:enhance={handleSubmit} class="h-42 relative">
 	<button type="submit" class="size-full">
 		<article
 			class="text-white flex items-center justify-center flex-col gap-5 rounded-md group shadow bg-blue-600 hover:bg-blue-800 cursor-pointer active:bg-blue-900 size-full"

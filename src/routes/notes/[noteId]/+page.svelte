@@ -4,6 +4,7 @@
 	import Time from 'svelte-time';
 	import { Archive, ArchiveX, Lightbulb, Star, CalendarClock, CalendarCog } from 'lucide-svelte';
 	import { invalidateAll } from '$app/navigation';
+	import { toast } from 'svelte-sonner';
 
 	let { data } = $props();
 	const showLastUpdated = $derived(
@@ -14,6 +15,7 @@
 		return async ({ result }) => {
 			if (result.type === 'success') {
 				await invalidateAll();
+				toast(result.data.message);
 			}
 		};
 	}

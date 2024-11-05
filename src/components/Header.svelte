@@ -4,6 +4,7 @@
 	import * as Avatar from '$lib/components/ui/avatar';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { Plus, Search } from 'lucide-svelte';
+	import { enhance } from '$app/forms';
 
 	const {
 		name,
@@ -21,13 +22,6 @@
 		<Input placeholder="Search Notes" class="indent-6" />
 
 		<Search class="size-5 text-gray-500 absolute top-2.5 left-2" />
-	</div>
-
-	<div class="ml-auto">
-		<Button variant="outline">
-			<Plus />
-			New Note
-		</Button>
 	</div>
 
 	<div>

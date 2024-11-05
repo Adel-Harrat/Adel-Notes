@@ -2,6 +2,8 @@
 	import NoteCard from '../components/NoteCard.svelte';
 	import NewNoteCard from '../components/NewNoteCard.svelte';
 	import type { PageServerData } from './$types';
+	import { Bird } from 'lucide-svelte';
+	import NoNotes from '../components/NoNotes.svelte';
 
 	let { data }: { data: PageServerData } = $props();
 </script>
@@ -12,6 +14,7 @@
 
 <section class="my-10">
 	<h1 class="text-3xl font-bold tracking-tight text-gray-900 my-6">Your Notes</h1>
+
 	<div class="grid grid-cols-4 gap-4">
 		<NewNoteCard />
 		{#each data.notes as note}

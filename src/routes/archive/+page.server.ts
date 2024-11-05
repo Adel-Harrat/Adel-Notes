@@ -13,7 +13,7 @@ export const load: PageServerLoad = async ({ request }: RequestEvent) => {
 			status: 'ARCHIVED'
 		},
 		orderBy: {
-			createdAt: 'desc'
+			updatedAt: 'desc'
 		}
 	});
 

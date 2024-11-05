@@ -33,7 +33,8 @@ export const actions = {
 			});
 
 			return {
-				type: 'success'
+				type: 'success',
+				message: "You're note has been modified to normal"
 			};
 		} catch {
 			return {
@@ -54,7 +55,8 @@ export const actions = {
 			});
 
 			return {
-				type: 'success'
+				type: 'success',
+				message: "You're note has been favorited"
 			};
 		} catch {
 			return {
@@ -75,7 +77,8 @@ export const actions = {
 			});
 
 			return {
-				type: 'success'
+				type: 'success',
+				message: "You're note has been archived"
 			};
 		} catch {
 			return {
@@ -96,7 +99,8 @@ export const actions = {
 			});
 
 			return {
-				type: 'success'
+				type: 'success',
+				message: "You're note has been deleted"
 			};
 		} catch {
 			return {
