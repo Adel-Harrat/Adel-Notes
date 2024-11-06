@@ -2,6 +2,7 @@
 	import NoteCard from '../components/NoteCard.svelte';
 	import NewNoteCard from '../components/NewNoteCard.svelte';
 	import type { ActionData, PageServerData } from './$types';
+	import { fade } from 'svelte/transition';
 
 	let { data, form }: { data: PageServerData; form: ActionData } = $props();
 </script>
@@ -15,8 +16,10 @@
 
 	<div class="grid grid-cols-4 gap-4">
 		<NewNoteCard {form} />
-		{#each data.notes as note}
-			<NoteCard {note} />
+		{#each data.notes as note, _ (note.id)}
+			<div transition:fade>
+				<NoteCard {note} />
+			</div>
 		{/each}
 	</div>
 </section>
