@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { invalidateAll } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import { Button, buttonVariants } from '$lib/components/ui/button';
 	import { Input } from '$lib/components/ui/input';
 	import { Label } from '$lib/components/ui/label';
@@ -19,6 +19,7 @@
 		if (form?.type === 'success') {
 			await invalidateAll();
 			toast(form?.message);
+			goto(`/notes/${id}`);
 		}
 
 		if (form?.type === 'error') {
