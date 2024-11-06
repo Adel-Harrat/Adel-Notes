@@ -16,22 +16,25 @@
 	} = $props();
 
 	let searchQuery = $state($page.url.searchParams.get('q'));
+
+	$effect(() => {
+		searchQuery = $page.url.searchParams.get('q');
+	});
 </script>
 
 <header class="col-span-4 px-5 flex items-center justify-between gap-5 mt-5">
-	<div class="w-1/2 relative">
-		<form method="GET" action="/search">
-			<Input
-				placeholder="Search Notes"
-				class="indent-6"
-				type="search"
-				name="q"
-				bind:value={searchQuery}
-			/>
-		</form>
+	<form method="GET" action="/search" class="w-1/2 relative">
+		<Input
+			placeholder="Search Notes"
+			class="indent-6"
+			type="search"
+			name="q"
+			bind:value={searchQuery}
+			id="search-input"
+		/>
 
-		<Search class="size-5 text-gray-500 absolute top-2.5 left-2" />
-	</div>
+		<Search class="pointer-events-none size-5 text-gray-500 absolute top-2.5 left-2" />
+	</form>
 
 	<div class="mt-2">
 		<DropdownMenu.Root>
