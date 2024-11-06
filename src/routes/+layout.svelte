@@ -3,9 +3,19 @@
 	import Aside from '../components/Aside/Aside.svelte';
 	import Header from '../components/Header.svelte';
 	import { Toaster } from '$lib/components/ui/sonner/index.js';
+	import { browser } from '$app/environment';
+	import { toast } from 'svelte-sonner';
 
 	let { children, data } = $props();
 	const { img, name, nameFallback } = data.user;
+
+	const isOnline = $state(browser ? navigator.onLine : false);
+
+	$effect(() => {
+		if (!isOnline) {
+			toast('You are offline');
+		}
+	});
 </script>
 
 <svelte:head>

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Archive, Star } from 'lucide-svelte';
+	import { Archive, Star, ArchiveX } from 'lucide-svelte';
 	import Time from 'svelte-time';
 	const props = $props();
 </script>
@@ -29,6 +29,8 @@
 						<Star class="size-4 fill-current text-yellow-500" />
 					{:else if props.note.status === 'ARCHIVED'}
 						<Archive class="size-4" />
+					{:else if props.note.status === 'DELETED'}
+						<ArchiveX class="size-4 text-destructive" />
 					{/if}
 				</div>
 			</div>
