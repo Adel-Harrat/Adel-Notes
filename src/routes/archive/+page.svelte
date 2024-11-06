@@ -10,7 +10,7 @@
 </svelte:head>
 
 <section class="my-10">
-	<h1 class="text-3xl font-bold tracking-tight text-gray-900 my-6">Your Archive</h1>
+	<h1 class="text-3xl font-bold tracking-tight text-gray-900 mb-5">Your Archive</h1>
 
 	{#if data.notes.length > 0}
 		<div class="grid grid-cols-4 gap-4">

@@ -1,6 +1,6 @@
 import prisma from '$lib/prisma';
 import { kindeAuthClient, type SessionManager } from '@kinde-oss/kinde-auth-sveltekit';
-import type { RequestEvent } from '@sveltejs/kit';
+import { fail, type RequestEvent } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ request }: RequestEvent) => {
@@ -57,12 +57,12 @@ export const actions = {
 			});
 
 			return {
-				success: true,
+				type: 'success',
 				message: 'Note added successfully'
 			};
 		} catch {
 			return {
-				success: false,
+				type: 'error',
 				message: 'Failed to add note'
 			};
 		}

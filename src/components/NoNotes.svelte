@@ -4,7 +4,7 @@
 	let { title = 'No Notes' } = $props();
 </script>
 
-<div class="flex flex-col items-center justify-center *:text-neutral-500">
+<div class="flex flex-col items-center justify-center *:text-zinc-400">
 	<Bird class="size-20" />
 	<h2 class="text-2xl font-light">{title}</h2>
 </div>

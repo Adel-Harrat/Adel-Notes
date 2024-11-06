@@ -2,23 +2,52 @@
 	import { enhance } from '$app/forms';
 	import { Button, buttonVariants } from '$lib/components/ui/button';
 	import Time from 'svelte-time';
-	import { Archive, ArchiveX, Lightbulb, Star, CalendarClock, CalendarCog } from 'lucide-svelte';
+	import {
+		Archive,
+		ArchiveX,
+		Lightbulb,
+		Star,
+		CalendarClock,
+		CalendarCog,
+		LoaderCircle
+	} from 'lucide-svelte';
 	import { invalidateAll } from '$app/navigation';
 	import { toast } from 'svelte-sonner';
+	import type { PageServerData } from './edit/$types';
+	import type { ActionData } from '../../$types';
 
-	let { data } = $props();
+	let { data, form }: { data: PageServerData; form: ActionData } = $props();
+
 	const showLastUpdated = $derived(
 		data.note.createdAt.toString() !== data.note.updatedAt.toString()
 	);
 
-	function handleSubmit() {
-		return async ({ result }) => {
-			if (result.type === 'success') {
-				await invalidateAll();
-				toast(result.data.message);
-			}
+	let isLoading = $state({
+		normal: false,
+		favorite: false,
+		archive: false,
+		delete: false
+	});
+
+	async function showFeedBack() {
+		if (form?.type === 'success') {
+			toast(form?.message);
+			await invalidateAll();
+		} else if (form?.type === 'error') {
+			toast(form?.message);
+		}
+
+		isLoading = {
+			normal: false,
+			favorite: false,
+			archive: false,
+			delete: false
 		};
 	}
+
+	$effect(() => {
+		showFeedBack();
+	});
 </script>
 
 <svelte:head>
@@ -30,9 +59,13 @@
 		<h1 class="text-3xl font-bold tracking-tight flex-1 text-gray-900">{data.note.title}</h1>
 
 		{#if data.note.status === 'DELETED'}
-			<span class="bg-red-200 text-red-900 px-4 py-1.5 rounded-full font-normal text-sm"
-				>Deleted</span
-			>
+			<span class="bg-red-200 text-red-900 px-4 py-1.5 rounded-full font-normal text-sm">
+				{#if isLoading?.delete}
+					<span>Loading</span>
+				{:else}
+					<span>Deleted</span>
+				{/if}
+			</span>
 		{:else if data.note.status === 'ARCHIVED'}
 			<span class="bg-gray-200 text-gray-900 px-4 py-1.5 rounded-full font-normal text-sm"
 				>Archived</span
@@ -72,46 +105,90 @@
 	<div class="mt-4 flex items-center justify-between">
 		<ul class="flex items-center gap-4">
 			<li>
-				<form action="?/setStatusToNormal" method="POST" use:enhance={handleSubmit}>
+				<form
+					action="?/setStatusToNormal"
+					method="POST"
+					use:enhance={() => {
+						isLoading.normal = true;
+					}}
+				>
 					<Button
 						type="submit"
 						variant={data.note.status === 'NORMAL' ? 'default' : 'outline'}
 						size="icon"
+						disabled={isLoading.normal}
 					>
-						<Lightbulb class="size-5" />
+						{#if isLoading.normal}
+							<LoaderCircle class="size-5 animate-spin" />
+						{:else}
+							<Lightbulb class="size-5" />
+						{/if}
 					</Button>
 				</form>
 			</li>
 			<li>
-				<form action="?/setStatusToFavorited" method="POST" use:enhance={handleSubmit}>
+				<form
+					action="?/setStatusToFavorited"
+					method="POST"
+					use:enhance={() => {
+						isLoading.favorite = true;
+					}}
+				>
 					<Button
 						type="submit"
 						variant={data.note.status === 'FAVORITED' ? 'default' : 'outline'}
 						size="icon"
+						disabled={isLoading.favorite}
 					>
-						<Star class="size-5" />
+						{#if isLoading.favorite}
+							<LoaderCircle class="size-5 animate-spin" />
+						{:else}
+							<Star class="size-5" />
+						{/if}
 					</Button>
 				</form>
 			</li>
 			<li>
-				<form action="?/setStatusToArchived" method="POST" use:enhance={handleSubmit}>
+				<form
+					action="?/setStatusToArchived"
+					method="POST"
+					use:enhance={() => {
+						isLoading.archive = true;
+					}}
+				>
 					<Button
 						type="submit"
 						variant={data.note.status === 'ARCHIVED' ? 'default' : 'outline'}
 						size="icon"
+						disabled={isLoading.archive}
 					>
-						<Archive class="size-5" /></Button
-					>
+						{#if isLoading.archive}
+							<LoaderCircle class="size-5 animate-spin" />
+						{:else}
+							<Archive class="size-5" />
+						{/if}
+					</Button>
 				</form>
 			</li>
 			<li>
-				<form action="?/setStatusToDeleted" method="POST" use:enhance={handleSubmit}>
+				<form
+					action="?/setStatusToDeleted"
+					method="POST"
+					use:enhance={() => {
+						isLoading.delete = true;
+					}}
+				>
 					<Button
 						type="submit"
 						variant={data.note.status === 'DELETED' ? 'default' : 'outline'}
 						size="icon"
+						disabled={isLoading.delete}
 					>
-						<ArchiveX class="size-5" />
+						{#if isLoading.delete}
+							<LoaderCircle class="size-5 animate-spin" />
+						{:else}
+							<ArchiveX class="size-5" />
+						{/if}
 					</Button>
 				</form>
 			</li>

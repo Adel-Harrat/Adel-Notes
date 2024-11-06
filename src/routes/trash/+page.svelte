@@ -25,7 +25,7 @@
 </svelte:head>
 
 <section class="my-10">
-	<div class="flex items-center justify-between">
+	<div class="flex items-center justify-between mb-5">
 		<h1 class="text-3xl font-bold tracking-tight text-gray-900">Trash</h1>
 
 		{#if data.notes.length > 0}

@@ -34,7 +34,7 @@ export const actions = {
 
 			return {
 				type: 'success',
-				message: "You're note has been modified to normal"
+				message: "You're note has been reset"
 			};
 		} catch {
 			return {

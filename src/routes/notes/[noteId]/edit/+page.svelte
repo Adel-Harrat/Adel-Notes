@@ -5,25 +5,32 @@
 	import { Input } from '$lib/components/ui/input';
 	import { Label } from '$lib/components/ui/label';
 	import { Textarea } from '$lib/components/ui/textarea';
-	import type { PageServerData } from './$types';
+	import { LoaderCircle } from 'lucide-svelte';
+	import type { ActionData, PageServerData } from './$types';
 	import { toast } from 'svelte-sonner';
 
-	let { data }: { data: PageServerData } = $props();
+	let { data, form }: { data: PageServerData; form: ActionData } = $props();
 
 	let { id, title, content, status } = data.note;
 
-	function handleSubmit() {
-		return async ({ result }: { result: { data: { type: string; message: string } } }) => {
-			if (result.data.type === 'success') {
-				await invalidateAll();
-				toast(result.data.message);
-			}
+	let isLoading = $state(false);
 
-			if (result.data.type === 'error') {
-				toast(result.data.message);
-			}
-		};
+	async function showFeedBack() {
+		if (form?.type === 'success') {
+			await invalidateAll();
+			toast(form?.message);
+		}
+
+		if (form?.type === 'error') {
+			toast(form?.message);
+		}
+
+		isLoading = false;
 	}
+
+	$effect(() => {
+		showFeedBack();
+	});
 </script>
 
 <svelte:head>
@@ -31,7 +38,13 @@
 </svelte:head>
 
 <section class="max-w-lg my-10">
-	<form class="space-y-4" method="POST" use:enhance={handleSubmit}>
+	<form
+		class="space-y-4"
+		method="POST"
+		use:enhance={() => {
+			isLoading = true;
+		}}
+	>
 		<div class="flex items-center justify-between">
 			<h1 class="text-3xl font-bold tracking-tight text-gray-900">Edit Note</h1>
 
@@ -70,9 +83,15 @@
 		</div>
 
 		<div class="flex items-center gap-4">
-			<Button class="w-full" type="submit">Save Note</Button>
+			<Button class="w-full" type="submit" disabled={isLoading}>
+				{#if isLoading}
+					<LoaderCircle class="size-5 animate-spin" />
+				{:else}
+					<span>Save Note</span>
+				{/if}
+			</Button>
 
-			<a class="w-full {buttonVariants({ variant: 'outline' })}" href="/notes/{id}">Cancel</a>
+			<a class="w-full {buttonVariants({ variant: 'outline' })}" href="/notes/{id}">Go Back</a>
 		</div>
 	</form>
 </section>
