@@ -2,9 +2,7 @@
 	import Input from '$lib/components/ui/input/input.svelte';
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
 	import * as Avatar from '$lib/components/ui/avatar';
-	import Button from '$lib/components/ui/button/button.svelte';
-	import { Plus, Search } from 'lucide-svelte';
-	import { enhance } from '$app/forms';
+	import { Search } from 'lucide-svelte';
 
 	const {
 		name,
@@ -17,14 +15,16 @@
 	} = $props();
 </script>
 
-<header class="mt-5 col-span-4 px-5 flex items-center justify-between gap-5">
+<header class="col-span-4 px-5 flex items-center justify-between gap-5 mt-5">
 	<div class="w-1/2 relative">
-		<Input placeholder="Search Notes" class="indent-6" />
+		<form method="GET" action="/search">
+			<Input placeholder="Search Notes" class="indent-6" type="search" name="q" />
+		</form>
 
 		<Search class="size-5 text-gray-500 absolute top-2.5 left-2" />
 	</div>
 
-	<div>
+	<div class="mt-2">
 		<DropdownMenu.Root>
 			<DropdownMenu.Trigger>
 				<Avatar.Root>
@@ -32,7 +32,7 @@
 					<Avatar.Fallback>{nameFallback}</Avatar.Fallback>
 				</Avatar.Root>
 			</DropdownMenu.Trigger>
-			<DropdownMenu.Content>
+			<DropdownMenu.Content side="bottom">
 				<DropdownMenu.Group>
 					<DropdownMenu.Label>{name}</DropdownMenu.Label>
 					<DropdownMenu.Separator />
