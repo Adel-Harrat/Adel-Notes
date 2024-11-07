@@ -54,9 +54,9 @@
 				<DropdownMenu.Group>
 					<DropdownMenu.Label>{name}</DropdownMenu.Label>
 					<DropdownMenu.Separator />
-					<DropdownMenu.Item href="/api/auth/logout" class="cursor-pointer">
-						Log out
-					</DropdownMenu.Item>
+					<a href="/api/auth/logout">
+						<DropdownMenu.Item class="cursor-pointer">Log out</DropdownMenu.Item>
+					</a>
 				</DropdownMenu.Group>
 			</DropdownMenu.Content>
 		</DropdownMenu.Root>

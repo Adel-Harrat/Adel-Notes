@@ -9,6 +9,7 @@
 	let { data, form }: { data: PageData; form: ActionData } = $props();
 	import * as AlertDialog from '$lib/components/ui/alert-dialog';
 	import { LoaderCircle } from 'lucide-svelte';
+	import PageTitle from '../../components/PageTitle.svelte';
 
 	let isLoading = $state(false);
 	let dialogOpen = $state(false);
@@ -32,9 +33,9 @@
 	<title>Trash</title>
 </svelte:head>
 
-<section class="my-10">
-	<div class="flex items-center justify-between mb-5">
-		<h1 class="text-3xl font-bold tracking-tight text-gray-900">Trash</h1>
+<section class="my-4">
+	<div class="flex items-center justify-between">
+		<PageTitle>Trash</PageTitle>
 
 		{#if data.notes.length > 0}
 			<AlertDialog.Root bind:open={dialogOpen}>
@@ -81,6 +82,6 @@
 			{/each}
 		</div>
 	{:else}
-		<NoNotes title="Empty Trash" />
+		<NoNotes title="Empty trash" />
 	{/if}
 </section>

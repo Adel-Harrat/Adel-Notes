@@ -1,24 +1,26 @@
 <script lang="ts">
+	import NoNotes from '../../components/NoNotes.svelte';
 	import NoteCard from '../../components/NoteCard.svelte';
+	import PageTitle from '../../components/PageTitle.svelte';
 	import type { PageServerData } from './$types';
 
 	let { data }: { data: PageServerData } = $props();
 </script>
 
 <section class="my-10">
-	<h1 class="text-3xl font-bold tracking-tight text-gray-900 mb-5">
+	<PageTitle>
 		Search results for "{data.searchQuery}"
-	</h1>
+	</PageTitle>
 
-	<div class="grid grid-cols-4 gap-4">
-		{#if data.searchResults?.length === 0}
-			<p>No results were found</p>
-		{/if}
+	{#if data.searchResults?.length === 0}
+		<NoNotes title="No results were found" />
+	{/if}
 
-		{#if data.searchResults}
+	{#if data.searchResults}
+		<div class="grid grid-cols-4 gap-4">
 			{#each data.searchResults as note}
 				<NoteCard {note} />
 			{/each}
-		{/if}
-	</div>
+		</div>
+	{/if}
 </section>

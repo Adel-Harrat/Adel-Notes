@@ -27,7 +27,7 @@
 >
 	<button disabled={isLoading} type="submit" class="size-full absolute inset-0 group">
 		<article
-			class="text-white flex items-center justify-center flex-col gap-5 rounded-md group shadow bg-blue-600 hover:bg-blue-800 cursor-pointer active:bg-blue-900 size-full group-disabled:bg-blue-950 group-disabled:cursor-wait"
+			class="text-white flex items-center justify-center flex-col gap-5 rounded-md group shadow bg-primary hover:brightness-125 cursor-pointer active:brightness-125 size-full group-disabled:brightness-95 group-disabled:cursor-wait"
 		>
 			{#if isLoading}
 				<LoaderCircle class="size-10 animate-spin" />

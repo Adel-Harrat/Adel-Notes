@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PageTitle from '../../components/PageTitle.svelte';
 	import type { ActionData, PageServerData } from './$types';
 	import AddLabelform from './AddLabelform.svelte';
 	import Label from './Label.svelte';
@@ -10,14 +11,14 @@
 	<title>Labels</title>
 </svelte:head>
 
-<section class="my-10">
+<section class="my-4">
 	<div class="flex items-center justify-between">
-		<h1 class="text-3xl font-bold tracking-tight text-gray-900">Labels</h1>
+		<PageTitle>Manage Labels</PageTitle>
 
 		<AddLabelform {form} />
 	</div>
 
-	<section class="flex items-center gap-2 flex-wrap mt-4">
+	<section class="flex items-center gap-2 flex-wrap">
 		{#if data?.labels?.length === 0}
 			<p>No labels were found</p>
 		{:else}

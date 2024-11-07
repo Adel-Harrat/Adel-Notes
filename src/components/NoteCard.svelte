@@ -7,7 +7,7 @@
 <a href={`/notes/${props.note.id}`}>
 	<article
 		title={props.note.title}
-		class="bg-white h-full rounded-md group shadow overflow-hidden cursor-pointer flex flex-col"
+		class="bg-secondary h-full rounded-md group shadow overflow-hidden cursor-pointer flex flex-col"
 	>
 		<div class="relative bg-yellow-50 overflow-hidden h-32 group">
 			<img
@@ -20,13 +20,13 @@
 
 		<div class="p-3 space-y-1 mt-auto">
 			<div class="flex items-center justify-between gap-2">
-				<h2 class="font-normal text-gray-900 text-sm line-clamp-1">
+				<h2 class="font-normal text-card-foreground text-sm line-clamp-1">
 					{props.note.title}
 				</h2>
 
 				<div>
 					{#if props.note.status === 'FAVORITED'}
-						<Star class="size-4 fill-current text-yellow-500" />
+						<Star class="size-4 fill-current text-yellow-400 dark:text-yellow-600" />
 					{:else if props.note.status === 'ARCHIVED'}
 						<Archive class="size-4" />
 					{:else if props.note.status === 'DELETED'}

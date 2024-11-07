@@ -11,20 +11,23 @@
 	import { Badge } from '$lib/components/ui/badge';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { Checkbox } from '$lib/components/ui/checkbox';
+	import PageTitle from '../../../../components/PageTitle.svelte';
+	import * as Select from '$lib/components/ui/select/index.js';
+	import { NoteStatus } from '@prisma/client';
 
 	let { data, form }: { data: PageServerData; form: ActionData } = $props();
 
-	let { id, title, content, status } = data.note;
-
 	let isLoading = $state(false);
 
-	$inspect(data);
+	let status = $state(data.note.status);
+
+	$inspect(status);
 
 	async function showFeedBack() {
 		if (form?.type === 'success') {
 			await invalidateAll();
 			toast(form?.message);
-			goto(`/notes/${id}`);
+			goto(`/notes/${data.note?.id}`);
 		}
 
 		if (form?.type === 'error') {
@@ -53,11 +56,11 @@
 			isLoading = true;
 		}}
 	>
-		<div class="flex items-center justify-between border-b border-muted pb-4">
-			<h1 class="text-3xl font-bold tracking-tight text-gray-900">Edit Note</h1>
+		<div class="flex items-center justify-between border-b border-muted -mt-6">
+			<PageTitle>Edit Note</PageTitle>
 
 			<div class="flex items-center justify-end gap-4">
-				<a class={buttonVariants({ variant: 'outline' })} href="/notes/{id}">Cancel</a>
+				<a class={buttonVariants({ variant: 'outline' })} href="/notes/{data.note?.id}">Cancel</a>
 
 				<Button type="submit" disabled={isLoading}>
 					{#if isLoading}
@@ -77,7 +80,7 @@
 						placeholder="Please type your note's title here"
 						name="title"
 						id="title"
-						value={title}
+						value={data.note?.title}
 						disabled={isLoading}
 					/>
 				</div>
@@ -89,7 +92,7 @@
 						name="content"
 						id="content"
 						rows={5}
-						value={content}
+						value={data.note?.content}
 						disabled={isLoading}
 					/>
 				</div>
@@ -99,18 +102,30 @@
 				<div class="space-y-2 flex flex-col mt-4 gap-1">
 					<Label for="status">Status</Label>
 
-					<select
-						class="border-input border rounded-lg text-sm *:text-gray-600 *:font-display focus:outline-none max-w-max disabled:opacity-70"
-						name="status"
-						id="status"
-						value={status}
-						disabled={isLoading}
-					>
-						<option value="NORMAL">Default</option>
-						<option value="FAVORITED">Favorited</option>
-						<option value="ARCHIVED">Archived</option>
-						<option value="DELETED">Deleted</option>
-					</select>
+					<Select.Root type="single" name="status" disabled={isLoading}>
+						<Select.Trigger id="status" class="w-[180px]">
+							{status === 'NORMAL' ? 'Default' : null}
+							{status === 'FAVORITED' ? 'Favorited' : null}
+							{status === 'ARCHIVED' ? 'Archived' : null}
+							{status === 'DELETED' ? 'Deleted' : null}
+						</Select.Trigger>
+						<Select.Content>
+							<Select.Item onclick={() => (status = 'NORMAL')} value="NORMAL" label="Default" />
+							<Select.Item
+								onclick={() => (status = 'FAVORITED')}
+								value="FAVORITED"
+								label="Favorited"
+							/>
+							<Select.Item
+								onclick={() => (status = 'ARCHIVED')}
+								value="ARCHIVED"
+								label="Archived"
+							/>
+							<Select.Item onclick={() => (status = 'DELETED')} value="DELETED" label="Deleted" />
+						</Select.Content>
+					</Select.Root>
+
+					<input type="hidden" class="text-black" name="status" value={status} />
 				</div>
 
 				<div class="space-y-2">

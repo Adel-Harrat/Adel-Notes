@@ -13,12 +13,12 @@
 	} from 'lucide-svelte';
 
 	let {
-		labels
+		labels,
+		isLabelsMenuOpen
 	}: {
 		labels: { id: string; name: string }[];
+		isLabelsMenuOpen: boolean;
 	} = $props();
-
-	let isLabelsMenuOpen = $state(labels.length > 4 ? false : true);
 </script>
 
 <ul class="flex flex-col items-start gap-6 mt-10 text-left px-5">
@@ -53,12 +53,15 @@
 		{#if labels.length}
 			{#if isLabelsMenuOpen}
 				<ul
-					class="flex flex-col gap-3 mt-3 pl-8 items-start w-full *:text-sm *:text-neutral-600"
+					class="flex flex-col mt-3 pl-5 items-start w-full *:text-sm *:text-muted-foreground"
 					transition:slide
 				>
 					{#each labels as label (label.id)}
 						<li>
-							<a class="flex items-center gap-2" href="/labels/{label.id}">
+							<a
+								class="flex items-center gap-2 hover:text-primary transition-all ease-in-out duration-200 py-2 hover:pl-2 focus:text-primary focus:pl-2 outline-none"
+								href="/labels/{label.id}"
+							>
 								<Tags class="size-5" />
 								{label?.name}
 							</a>

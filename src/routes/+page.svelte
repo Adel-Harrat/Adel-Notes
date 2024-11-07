@@ -3,6 +3,7 @@
 	import NewNoteCard from '../components/NewNoteCard.svelte';
 	import type { ActionData, PageServerData } from './$types';
 	import { fade } from 'svelte/transition';
+	import PageTitle from '../components/PageTitle.svelte';
 
 	let { data, form }: { data: PageServerData; form: ActionData } = $props();
 </script>
@@ -12,7 +13,7 @@
 </svelte:head>
 
 <section class="my-10">
-	<h1 class="text-3xl font-bold tracking-tight text-gray-900 my-6">Your Notes</h1>
+	<PageTitle>Our Notes</PageTitle>
 
 	<div class="grid grid-cols-4 gap-4">
 		<NewNoteCard {form} />

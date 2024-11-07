@@ -8,6 +8,8 @@
 	import { Badge } from '$lib/components/ui/badge';
 	import type { PageServerData } from './$types';
 	import { Label } from '$lib/components/ui/label';
+	import PageTitle from '../../../components/PageTitle.svelte';
+	import StatusBadge from '../../../components/StatusBadge.svelte';
 
 	let { data, form }: { data: PageServerData; form: ActionData } = $props();
 
@@ -48,8 +50,10 @@
 </svelte:head>
 
 <section class="pt-8 flex flex-col">
-	<div class="flex items-center justify-between border-b border-muted pb-4">
-		<h1 class="text-3xl font-bold tracking-tight flex-1 text-gray-900">{data.note.title}</h1>
+	<div class="flex items-center justify-between border-b border-muted -mt-4">
+		<PageTitle>
+			{data.note.title}
+		</PageTitle>
 
 		<a href="/notes/{data.note.id}/edit" class={buttonVariants()}>Edit Note</a>
 	</div>
@@ -57,7 +61,7 @@
 	<div class="grid grid-cols-[2fr_1fr] gap-6 mt-6">
 		<div>
 			{#if data.note?.content?.length}
-				<div class="bg-gray-50 min-h-52 shadow-inner rounded-lg p-5 text-base">
+				<div class="bg-muted min-h-52 shadow-inner rounded-lg p-5 text-base">
 					{data.note.content}
 				</div>
 			{:else}
@@ -73,37 +77,13 @@
 			<div class="space-y-2">
 				<Label>Status</Label>
 
-				<p>
-					{#if data.note.status === 'DELETED'}
-						<span class="bg-red-200 text-red-900 px-4 py-1.5 rounded-full font-normal text-sm">
-							{#if isLoading?.delete}
-								<span>Loading</span>
-							{:else}
-								<span>Deleted</span>
-							{/if}
-						</span>
-					{:else if data.note.status === 'ARCHIVED'}
-						<span class="bg-gray-200 text-gray-900 px-4 py-1.5 rounded-full font-normal text-sm">
-							Archived
-						</span>
-					{:else if data.note.status === 'FAVORITED'}
-						<span
-							class="bg-yellow-200 text-yellow-900 px-4 py-1.5 rounded-full font-normal text-sm"
-						>
-							Favorited
-						</span>
-					{:else if data.note.status === 'NORMAL'}
-						<span class="bg-gray-50 text-gray-900 px-4 py-1.5 rounded-full font-normal text-sm">
-							Default
-						</span>
-					{/if}
-				</p>
+				<StatusBadge value={data.note.status} />
 			</div>
 
 			<div class="space-y-2">
 				<Label>Created at</Label>
 
-				<p class="flex items-center gap-1 text-xs text-gray-600">
+				<p class="flex items-center gap-1 text-xs text-muted-foreground">
 					<CalendarClock class="size-4" />
 					<Time timestamp={data.note.createdAt} format="MMMM D, YYYY &mdash; h:mm A" />
 				</p>
@@ -113,7 +93,7 @@
 				<div class="space-y-2">
 					<Label>Updated at</Label>
 
-					<p class="flex items-center gap-1 text-xs text-gray-600">
+					<p class="flex items-center gap-1 text-xs text-muted-foreground">
 						<CalendarCog class="size-4" />
 						<Time timestamp={data.note.updatedAt} format="MMMM D, YYYY &mdash; h:mm A" />
 					</p>

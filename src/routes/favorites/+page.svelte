@@ -1,7 +1,9 @@
 <script lang="ts">
+	import { Star } from 'lucide-svelte';
 	import type { PageData } from '../$types';
 	import NoNotes from '../../components/NoNotes.svelte';
 	import NoteCard from '../../components/NoteCard.svelte';
+	import PageTitle from '../../components/PageTitle.svelte';
 	let { data }: { data: PageData } = $props();
 </script>
 
@@ -10,7 +12,7 @@
 </svelte:head>
 
 <section class="my-10">
-	<h1 class="text-3xl font-bold tracking-tight text-gray-900 mb-5">Your Favorites</h1>
+	<PageTitle>Your Favorites</PageTitle>
 
 	{#if data.notes.length > 0}
 		<div class="grid grid-cols-4 gap-4">
@@ -19,6 +21,6 @@
 			{/each}
 		</div>
 	{:else}
-		<NoNotes title="No favorited notes!" />
+		<NoNotes title="No favorites" />
 	{/if}
 </section>
