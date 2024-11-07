@@ -129,16 +129,17 @@
 				</div>
 			{/if}
 
-			<div class="space-y-2">
-				<Label>Labels</Label>
-				{#if data.note.labels.length > 0}
+			{#if data.note.labels.length > 0}
+				<div class="space-y-2">
+					<Label>Labels</Label>
+
 					<div class="flex flex-wrap items-center gap-2">
 						{#each data.note.labels as label (label.id)}
 							<Badge variant="default">{label.name}</Badge>
 						{/each}
 					</div>
-				{/if}
-			</div>
+				</div>
+			{/if}
 		</div>
 	</div>
 </section>

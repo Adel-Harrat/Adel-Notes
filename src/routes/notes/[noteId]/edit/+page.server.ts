@@ -51,7 +51,7 @@ export const actions = {
 		const content = data.get('content')?.toString();
 		const status = data.get('status')?.toString() ?? 'NORMAL';
 		const stringOfLabelsIds = data.get('selectedLabels')?.toString();
-		const labels = stringOfLabelsIds?.split(',');
+		const labels = stringOfLabelsIds ? stringOfLabelsIds?.split(',') : [];
 
 		// Make sure the note exists
 		const note = await prisma.note.findFirst({
