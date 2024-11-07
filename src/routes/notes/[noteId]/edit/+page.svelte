@@ -8,12 +8,17 @@
 	import { LoaderCircle } from 'lucide-svelte';
 	import type { ActionData, PageServerData } from './$types';
 	import { toast } from 'svelte-sonner';
+	import { Badge } from '$lib/components/ui/badge';
+	import * as Dialog from '$lib/components/ui/dialog/index.js';
+	import { Checkbox } from '$lib/components/ui/checkbox';
 
 	let { data, form }: { data: PageServerData; form: ActionData } = $props();
 
 	let { id, title, content, status } = data.note;
 
 	let isLoading = $state(false);
+
+	$inspect(data);
 
 	async function showFeedBack() {
 		if (form?.type === 'success') {
@@ -32,6 +37,8 @@
 	$effect(() => {
 		showFeedBack();
 	});
+
+	let selectedLabels: any = $state(data.note.labels);
 </script>
 
 <svelte:head>
@@ -78,9 +85,65 @@
 				placeholder="Please type your note's content here"
 				name="content"
 				id="content"
-				rows={10}
+				rows={5}
 				value={content}
 			/>
+		</div>
+
+		<input type="hidden" value={selectedLabels.map((i: any) => i.id)} name="selectedLabels" />
+
+		<div class="space-y-2">
+			<Label for="content">Labels</Label>
+
+			<div class="flex items-center gap-2 flex-wrap">
+				{#each selectedLabels as label (label.id)}
+					<Badge variant="secondary">
+						{label.name}
+					</Badge>
+				{/each}
+
+				<Dialog.Root>
+					<Dialog.Trigger>
+						<Badge variant="default">Add label</Badge>
+					</Dialog.Trigger>
+					<Dialog.Content class="max-w-lg">
+						<Dialog.Header>
+							<Dialog.Title class="mb-4">Add or Remove Labels</Dialog.Title>
+							<Dialog.Description>
+								<div class="grid grid-cols-3 gap-4">
+									{#each data.availableLabels as label (label.id)}
+										<div class="flex gap-1 items-center">
+											<Checkbox
+												id={label.id}
+												value={label.id}
+												checked={selectedLabels.some((i: any) => i.id === label.id)}
+												onCheckedChange={(v: any) => {
+													if (v) selectedLabels = [...selectedLabels, label];
+													else
+														selectedLabels = selectedLabels.filter((i: any) => i.id !== label.id);
+												}}
+											/>
+
+											<div class="grid gap-1.5 leading-none">
+												<Label
+													for={label.id}
+													class="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+												>
+													{label.name}
+												</Label>
+											</div>
+										</div>
+									{/each}
+								</div>
+
+								<div class="mt-4 flex items-center justify-end">
+									<Dialog.Close class={buttonVariants({ variant: 'default' })}>Okay</Dialog.Close>
+								</div>
+							</Dialog.Description>
+						</Dialog.Header>
+					</Dialog.Content>
+				</Dialog.Root>
+			</div>
 		</div>
 
 		<div class="flex items-center gap-4">

@@ -13,8 +13,9 @@
 	} from 'lucide-svelte';
 	import { invalidateAll } from '$app/navigation';
 	import { toast } from 'svelte-sonner';
-	import type { PageServerData } from './edit/$types';
 	import type { ActionData } from '../../$types';
+	import { Badge } from '$lib/components/ui/badge';
+	import type { PageServerData } from './$types';
 
 	let { data, form }: { data: PageServerData; form: ActionData } = $props();
 
@@ -94,13 +95,21 @@
 		{/if}
 	</div>
 
-	<div class="bg-background min-h-52 rounded-lg shadow-inner p-5 mt-4 text-base">
+	<div class="bg-gray-50 min-h-52 rounded-lg p-5 mt-4 text-base">
 		{#if data.note?.content?.length}
 			{data.note.content}
 		{:else}
 			<div class="italic text-gray-400">Empty Note</div>
 		{/if}
 	</div>
+
+	{#if data.note.labels.length > 0}
+		<div class="flex flex-wrap items-center gap-2 mt-4">
+			{#each data.note.labels as label (label.id)}
+				<Badge variant="default">{label.name}</Badge>
+			{/each}
+		</div>
+	{/if}
 
 	<div class="mt-4 flex items-center justify-between">
 		<ul class="flex items-center gap-4">

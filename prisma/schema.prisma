@@ -31,30 +31,13 @@ model Note {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   status    NoteStatus @default(NORMAL)
-  
-  // Relation to labels
-  labels    LabelsOnNotes[]
+
+  labels    String[]
 }
 
 model Label {
   id          String    @id @default(auto()) @map("_id") @db.ObjectId
   name        String    @unique
   createdAt   DateTime  @default(now())
-  userId      String
-
-  
-  // Relation to notes
-  notes       LabelsOnNotes[]
-}
-
-// Junction table for many-to-many relationship between Notes and Labels
-model LabelsOnNotes {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  note      Note     @relation(fields: [noteId], references: [id])
-  noteId    String   @db.ObjectId
-  label     Label    @relation(fields: [labelId], references: [id])
-  labelId   String   @db.ObjectId
-  createdAt DateTime @default(now())
-
-  @@unique([noteId, labelId])
+  userId      String 
 }
