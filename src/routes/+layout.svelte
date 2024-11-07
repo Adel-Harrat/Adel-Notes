@@ -8,6 +8,7 @@
 
 	let { children, data } = $props();
 	const { img, name, nameFallback } = data.user;
+	const { labels } = data;
 
 	const isOnline = $state(browser ? navigator.onLine : false);
 
@@ -23,7 +24,7 @@
 </svelte:head>
 
 <section class="grid grid-cols-5 grid-rows-[50px_1fr]">
-	<Aside />
+	<Aside labels={data.labels} />
 
 	<Header img={img ?? ''} {name} {nameFallback} />
 

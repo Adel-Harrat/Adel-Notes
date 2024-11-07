@@ -1,3 +1,4 @@
+import prisma from '$lib/prisma';
 import { kindeAuthClient, type SessionManager } from '@kinde-oss/kinde-auth-sveltekit';
 import type { RequestEvent } from '@sveltejs/kit';
 import { redirect } from '@sveltejs/kit';
@@ -13,6 +14,15 @@ export async function load({ request }: RequestEvent) {
 
 	const user = await kindeAuthClient.getUser(request as unknown as SessionManager);
 
+	const labels = await prisma.label.findMany({
+		where: {
+			userId: user.id
+		},
+		orderBy: {
+			createdAt: 'desc'
+		}
+	});
+
 	return {
 		isAuthenticated,
 		user: {
@@ -20,6 +30,7 @@ export async function load({ request }: RequestEvent) {
 			nameFallback: `${(user?.given_name?.[0] || '').toUpperCase()}${(user?.family_name?.[0] || '').toUpperCase()}`,
 			img: user.picture,
 			id: user.id
-		}
+		},
+		labels
 	};
 }

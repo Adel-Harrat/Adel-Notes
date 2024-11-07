@@ -8,6 +8,7 @@
 
 	let { id }: { id: unknown } = $props();
 	let isLoading = $state(false);
+	let dialogOpen = $state(false);
 </script>
 
 <form
@@ -21,13 +22,14 @@
 				isLoading = false;
 				await invalidateAll();
 				toast(result.data?.message as string);
+				dialogOpen = false;
 			}
 		};
 	}}
 >
 	<input type="hidden" name="id" value={id} />
 
-	<AlertDialog.Root>
+	<AlertDialog.Root bind:open={dialogOpen}>
 		<AlertDialog.Trigger class={buttonVariants({ variant: 'destructive' })}
 			>Delete</AlertDialog.Trigger
 		>

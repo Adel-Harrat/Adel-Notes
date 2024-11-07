@@ -21,7 +21,7 @@
 		{#if data?.labels?.length === 0}
 			<p>No labels were found</p>
 		{:else}
-			{#each data?.labels ?? [] as label}
+			{#each data?.labels ?? [] as label (label.id)}
 				<Label {...label} />
 			{/each}
 		{/if}

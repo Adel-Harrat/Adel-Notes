@@ -7,6 +7,7 @@
 	import { LoaderCircle } from 'lucide-svelte';
 	import DeleteLabel from './DeleteLabel.svelte';
 	import { toast } from 'svelte-sonner';
+	import { Badge } from '$lib/components/ui/badge';
 
 	let { id, name } = $props();
 	let isLoading = $state(false);
@@ -16,7 +17,7 @@
 <div>
 	<Dialog.Root bind:open={dialogOpen}>
 		<Dialog.Trigger>
-			<button class="cursor-pointer bg-blue-500 text-blue-50 rounded-full px-4 py-1">{name}</button>
+			<Badge>{name}</Badge>
 		</Dialog.Trigger>
 		<Dialog.Content>
 			<Dialog.Header>
