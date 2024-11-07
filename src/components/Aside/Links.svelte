@@ -39,29 +39,33 @@
 				Labels
 			</Link>
 
-			<button onclick={() => (isLabelsMenuOpen = !isLabelsMenuOpen)} class="px-2">
-				{#if isLabelsMenuOpen}
-					<ChevronUp class="size-5" />
-				{:else}
-					<ChevronDown class="size-5" />
-				{/if}
-			</button>
+			{#if labels.length}
+				<button onclick={() => (isLabelsMenuOpen = !isLabelsMenuOpen)} class="px-2">
+					{#if isLabelsMenuOpen}
+						<ChevronUp class="size-5" />
+					{:else}
+						<ChevronDown class="size-5" />
+					{/if}
+				</button>
+			{/if}
 		</div>
 
-		{#if isLabelsMenuOpen}
-			<ul
-				class="flex flex-col gap-3 mt-3 pl-8 items-start w-full *:text-sm *:text-neutral-600"
-				transition:slide
-			>
-				{#each labels as label (label.id)}
-					<li>
-						<a class="flex items-center gap-2" href="/labels/{label.id}">
-							<Tags class="size-5" />
-							{label?.name}
-						</a>
-					</li>
-				{/each}
-			</ul>
+		{#if labels.length}
+			{#if isLabelsMenuOpen}
+				<ul
+					class="flex flex-col gap-3 mt-3 pl-8 items-start w-full *:text-sm *:text-neutral-600"
+					transition:slide
+				>
+					{#each labels as label (label.id)}
+						<li>
+							<a class="flex items-center gap-2" href="/labels/{label.id}">
+								<Tags class="size-5" />
+								{label?.name}
+							</a>
+						</li>
+					{/each}
+				</ul>
+			{/if}
 		{/if}
 	</div>
 

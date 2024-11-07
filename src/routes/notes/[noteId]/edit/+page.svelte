@@ -131,40 +131,44 @@
 							</Dialog.Trigger>
 							<Dialog.Content class="max-w-lg">
 								<Dialog.Header>
-									<Dialog.Title class="mb-4">Add or Remove Labels</Dialog.Title>
+									<Dialog.Title class="mb-4">Toggle Labels</Dialog.Title>
 									<Dialog.Description>
-										<div class="grid grid-cols-3 gap-4">
-											{#each data.availableLabels as label (label.id)}
-												<div class="flex gap-1 items-center">
-													<Checkbox
-														id={label.id}
-														value={label.id}
-														checked={selectedLabels.some((i: any) => i.id === label.id)}
-														onCheckedChange={(v: any) => {
-															if (v) selectedLabels = [...selectedLabels, label];
-															else
-																selectedLabels = selectedLabels.filter(
-																	(i: any) => i.id !== label.id
-																);
-														}}
-													/>
+										{#if data.availableLabels.length}
+											<div class="grid grid-cols-3 gap-4">
+												{#each data.availableLabels as label (label.id)}
+													<div class="flex gap-1 items-center">
+														<Checkbox
+															id={label.id}
+															value={label.id}
+															checked={selectedLabels.some((i: any) => i.id === label.id)}
+															onCheckedChange={(v: any) => {
+																if (v) selectedLabels = [...selectedLabels, label];
+																else
+																	selectedLabels = selectedLabels.filter(
+																		(i: any) => i.id !== label.id
+																	);
+															}}
+														/>
 
-													<div class="grid gap-1.5 leading-none">
-														<Label
-															for={label.id}
-															class="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-														>
-															{label.name}
-														</Label>
+														<div class="grid gap-1.5 leading-none">
+															<Label
+																for={label.id}
+																class="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+															>
+																{label.name}
+															</Label>
+														</div>
 													</div>
-												</div>
-											{/each}
-										</div>
+												{/each}
+											</div>
+										{:else}
+											<p class="text-muted-foreground text-sm">No labels found in database</p>
+										{/if}
 
 										<div class="mt-4 flex items-center justify-end">
-											<Dialog.Close class={buttonVariants({ variant: 'default' })}
-												>Okay</Dialog.Close
-											>
+											<Dialog.Close class={buttonVariants({ variant: 'default' })}>
+												Okay
+											</Dialog.Close>
 										</div>
 									</Dialog.Description>
 								</Dialog.Header>
