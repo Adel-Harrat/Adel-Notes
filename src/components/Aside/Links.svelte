@@ -23,19 +23,19 @@
 
 <ul class="flex flex-col items-start gap-6 mt-10 text-left px-5">
 	<Link href="/">
-		<Lightbulb />
+		<Lightbulb class="size-5" />
 		Home
 	</Link>
 
 	<Link href="/favorites">
-		<Star />
+		<Star class="size-5" />
 		Favorites
 	</Link>
 
 	<div class="w-full">
 		<div class="flex items-center justify-between">
 			<Link href="/labels">
-				<Layers />
+				<Layers class="size-5" />
 				Labels
 			</Link>
 
@@ -56,7 +56,7 @@
 				{#each labels as label (label.id)}
 					<li>
 						<a class="flex items-center gap-2" href="/labels/{label.id}">
-							<Tags class="size-4" />
+							<Tags class="size-5" />
 							{label?.name}
 						</a>
 					</li>
@@ -66,12 +66,12 @@
 	</div>
 
 	<Link href="/archive">
-		<Archive />
+		<Archive class="size-5" />
 		Archive
 	</Link>
 
 	<Link href="/trash">
-		<ArchiveX />
+		<ArchiveX class="size-5" />
 		Trash
 	</Link>
 </ul>

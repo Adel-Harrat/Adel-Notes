@@ -20,9 +20,13 @@
 		return async ({ result }) => {
 			if ('data' in result && result.data?.type === 'success') {
 				isLoading = false;
-				await invalidateAll();
-				toast(result.data?.message as string);
 				dialogOpen = false;
+				toast(result.data?.message as string);
+				await invalidateAll();
+			} else if ('data' in result && result.data?.type === 'error') {
+				dialogOpen = false;
+				isLoading = false;
+				toast(result.data?.message as string);
 			}
 		};
 	}}
@@ -42,15 +46,14 @@
 			</AlertDialog.Header>
 			<AlertDialog.Footer>
 				<AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
-				<AlertDialog.Action asChild>
-					<Button variant="destructive" type="submit" tabindex={3} disabled={isLoading}>
-						{#if isLoading}
-							<LoaderCircle class="size-5 animate-spin" />
-						{:else}
-							<span>Delete</span>
-						{/if}
-					</Button>
-				</AlertDialog.Action>
+
+				<Button variant="destructive" type="submit" tabindex={3} disabled={isLoading}>
+					{#if isLoading}
+						<LoaderCircle class="size-5 animate-spin" />
+					{:else}
+						<span>Delete</span>
+					{/if}
+				</Button>
 			</AlertDialog.Footer>
 		</AlertDialog.Content>
 	</AlertDialog.Root>

@@ -114,7 +114,7 @@ export const actions = {
 
 			return {
 				type: 'success',
-				message: "You're note has been deleted"
+				message: 'Your note has been deleted'
 			};
 		} catch {
 			return {

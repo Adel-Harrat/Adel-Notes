@@ -60,15 +60,13 @@
 							}}
 							class="flex items-center justify-between gap-2"
 						>
-							<AlertDialog.Action asChild>
-								<Button variant="destructive" class="w-[90px]" type="submit" disabled={isLoading}>
-									{#if isLoading}
-										<LoaderCircle class="size-5 animate-spin" />
-									{:else}
-										Proceed
-									{/if}
-								</Button>
-							</AlertDialog.Action>
+							<Button variant="destructive" class="w-[90px]" type="submit" disabled={isLoading}>
+								{#if isLoading}
+									<LoaderCircle class="size-5 animate-spin" />
+								{:else}
+									Proceed
+								{/if}
+							</Button>
 						</form>
 					</AlertDialog.Footer>
 				</AlertDialog.Content>
@@ -83,6 +81,6 @@
 			{/each}
 		</div>
 	{:else}
-		<NoNotes title="No notes in the trash!" />
+		<NoNotes title="Empty Trash" />
 	{/if}
 </section>

@@ -19,10 +19,23 @@ export const load: PageServerLoad = async ({ params, request }) => {
 			error(404, 'Label not found');
 		}
 
+		const notes = await prisma.note.findMany({
+			where: {
+				userId: loggedInUser.id,
+				labels: {
+					has: labelId
+				}
+			},
+			orderBy: {
+				updatedAt: 'desc'
+			}
+		});
+
 		return {
+			notes,
 			label
 		};
 	} catch {
-		error(500, 'Something went wrong!');
+		error(404, 'Label not found!');
 	}
 };

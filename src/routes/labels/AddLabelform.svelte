@@ -15,10 +15,9 @@
 
 	$effect(() => {
 		if (form?.action === 'create' && form?.type === 'success') {
-			invalidateAll().then(() => {
-				toast(form?.message);
-				dialogOpen = false;
-			});
+			dialogOpen = false;
+			toast(form?.message);
+			invalidateAll();
 		}
 
 		if (form?.type === 'error') {

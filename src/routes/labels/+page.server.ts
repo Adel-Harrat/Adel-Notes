@@ -9,7 +9,8 @@ export const load: PageServerLoad = async ({ request }) => {
 		const labels = await prisma.label.findMany({
 			where: {
 				userId: loggedInUser.id
-			}
+			},
+			orderBy: { createdAt: 'desc' }
 		});
 
 		return {
@@ -78,6 +79,25 @@ export const actions = {
 				return {
 					type: 'error',
 					message: 'Label not found' // Or that the user does not own it
+				};
+			}
+
+			const notes = await prisma.note.findMany({
+				where: {
+					userId: loggedInUser.id,
+					labels: {
+						has: labelId
+					}
+				}
+			});
+
+			if (notes.length > 0) {
+				console.log('Cannot delete label with notes.');
+
+				return {
+					action: 'delete',
+					type: 'error',
+					message: 'Cannot delete label with notes.'
 				};
 			}
 
