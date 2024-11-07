@@ -1,9 +1,9 @@
 import prisma from '$lib/prisma';
 import { kindeAuthClient, type SessionManager } from '@kinde-oss/kinde-auth-sveltekit';
-import { fail, type RequestEvent } from '@sveltejs/kit';
+import { type RequestEvent } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ request }: RequestEvent) => {
+export const load: PageServerLoad = async ({ request }) => {
 	// Get Current LoggedIn User
 	const loggedInUser = await kindeAuthClient.getUser(request as unknown as SessionManager);
 
