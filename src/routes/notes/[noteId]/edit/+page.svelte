@@ -102,7 +102,7 @@
 				<div class="space-y-2 flex flex-col mt-4 gap-1">
 					<Label for="status">Status</Label>
 
-					<Select.Root type="single" name="status" disabled={isLoading}>
+					<Select.Root type="single" name="status" disabled={isLoading} bind:value={status}>
 						<Select.Trigger id="status" class="w-[180px]">
 							{status === 'NORMAL' ? 'Default' : null}
 							{status === 'FAVORITED' ? 'Favorited' : null}
