@@ -56,7 +56,7 @@
 					? 'Archived'
 					: status === 'DELETED'
 						? 'Deleted'
-						: 'Unknown';
+						: 'Pick a status';
 	}
 </script>
 
@@ -118,21 +118,17 @@
 				<div class="space-y-2 flex flex-col mt-4 gap-1">
 					<Label for="status">Status</Label>
 
-					<!-- <Select.Root type="single" name="status" disabled={isLoading}>
-						<Select.Trigger id="status" class="w-[180px]">
-							<Select.Value placeholder="Select a fruit" />
+					<Select.Root type="single" name="status" bind:value={status} disabled={isLoading}>
+						<Select.Trigger class="w-[180px]">
+							{getStatusLabel(status)}
 						</Select.Trigger>
-
-						<Select.Trigger>open</Select.Trigger>
 						<Select.Content>
-							<Select.Item value="NORMAL" label="Default" />
-							<Select.Item value="FAVORITED" label="Favorited" />
-							<Select.Item value="ARCHIVED" label="Archived" />
-							<Select.Item value="DELETED" label="Deleted" />
+							<Select.Item value="NORMAL">Default</Select.Item>
+							<Select.Item value="FAVORITED">Favorited</Select.Item>
+							<Select.Item value="ARCHIVED">Archived</Select.Item>
+							<Select.Item value="DELETED">Deleted</Select.Item>
 						</Select.Content>
-					</Select.Root> -->
-
-					<input type="hidden" class="text-black" name="status" value={status} />
+					</Select.Root>
 				</div>
 
 				<div class="space-y-2">

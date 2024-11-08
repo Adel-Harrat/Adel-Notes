@@ -4,7 +4,7 @@
 	import { Button, buttonVariants } from '$lib/components/ui/button';
 	import { LoaderCircle } from 'lucide-svelte';
 	import { toast } from 'svelte-sonner';
-	import * as AlertDialog from '$lib/components/ui/alert-dialog';
+	import * as AlertDialog from '$lib/components/ui/alert-dialog/index.js';
 
 	let { id }: { id: unknown } = $props();
 	let isLoading = $state(false);
@@ -12,6 +12,7 @@
 </script>
 
 <form
+	id="delete-form"
 	action="/labels?/delete"
 	method="POST"
 	use:enhance={() => {
@@ -19,8 +20,8 @@
 
 		return async ({ result }) => {
 			if ('data' in result && result.data?.type === 'success') {
-				isLoading = false;
 				dialogOpen = false;
+				isLoading = false;
 				toast(result.data?.message as string);
 				await invalidateAll();
 			} else if ('data' in result && result.data?.type === 'error') {
@@ -33,37 +34,34 @@
 >
 	<input type="hidden" name="id" value={id} />
 
-	<Button variant="destructive" type="submit" tabindex={3} disabled={isLoading}>
-		{#if isLoading}
-			<LoaderCircle class="size-5 animate-spin" />
-		{:else}
-			<span>Delete!</span>
-		{/if}
-	</Button>
-
-	<!-- 
 	<AlertDialog.Root bind:open={dialogOpen}>
 		<AlertDialog.Trigger class={buttonVariants({ variant: 'destructive' })}>
-			Delete!!
+			Delete
 		</AlertDialog.Trigger>
 		<AlertDialog.Content>
 			<AlertDialog.Header>
 				<AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>
 				<AlertDialog.Description>
-					This action cannot be undone. This will permanently delete your label forever.
+					This action cannot be undone. This will permanently delete your account and remove your
+					data from our servers.
 				</AlertDialog.Description>
 			</AlertDialog.Header>
 			<AlertDialog.Footer>
 				<AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
-
-				<Button variant="destructive" type="submit" tabindex={3} disabled={isLoading}>
+				<Button
+					form="delete-form"
+					variant="destructive"
+					type="submit"
+					tabindex={3}
+					disabled={isLoading}
+				>
 					{#if isLoading}
 						<LoaderCircle class="size-5 animate-spin" />
 					{:else}
-						<span>Delete!</span>
+						<span>Confirm</span>
 					{/if}
 				</Button>
 			</AlertDialog.Footer>
 		</AlertDialog.Content>
-	</AlertDialog.Root> -->
+	</AlertDialog.Root>
 </form>
