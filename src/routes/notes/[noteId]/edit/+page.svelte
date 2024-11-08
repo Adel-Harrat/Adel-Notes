@@ -13,7 +13,6 @@
 	import { Checkbox } from '$lib/components/ui/checkbox';
 	import PageTitle from '../../../../components/PageTitle.svelte';
 	import * as Select from '$lib/components/ui/select/index.js';
-	import { NoteStatus } from '@prisma/client';
 
 	let { data, form }: { data: PageServerData; form: ActionData } = $props();
 
@@ -21,7 +20,12 @@
 
 	let status = $state(data.note.status);
 
-	$inspect(status);
+	let selected = $state({
+		value: data.note.status,
+		label: getStatusLabel(data.note.status)
+	});
+
+	$inspect(selected);
 
 	async function showFeedBack() {
 		if (form?.type === 'success') {
@@ -42,6 +46,18 @@
 	});
 
 	let selectedLabels: any = $state(data.note.labels);
+
+	function getStatusLabel(status: string) {
+		return status === 'NORMAL'
+			? 'Default'
+			: status === 'FAVORITED'
+				? 'Favorited'
+				: status === 'ARCHIVED'
+					? 'Archived'
+					: status === 'DELETED'
+						? 'Deleted'
+						: 'Unknown';
+	}
 </script>
 
 <svelte:head>
@@ -57,7 +73,7 @@
 		}}
 	>
 		<div class="flex items-center justify-between border-b border-muted -mt-6">
-			<PageTitle>Edit Note</PageTitle>
+			<PageTitle title="Edit Note" />
 
 			<div class="flex items-center justify-end gap-4">
 				<a class={buttonVariants({ variant: 'outline' })} href="/notes/{data.note?.id}">Cancel</a>
@@ -102,28 +118,19 @@
 				<div class="space-y-2 flex flex-col mt-4 gap-1">
 					<Label for="status">Status</Label>
 
-					<Select.Root type="single" name="status" disabled={isLoading} bind:value={status}>
+					<!-- <Select.Root type="single" name="status" disabled={isLoading}>
 						<Select.Trigger id="status" class="w-[180px]">
-							{status === 'NORMAL' ? 'Default' : null}
-							{status === 'FAVORITED' ? 'Favorited' : null}
-							{status === 'ARCHIVED' ? 'Archived' : null}
-							{status === 'DELETED' ? 'Deleted' : null}
+							<Select.Value placeholder="Select a fruit" />
 						</Select.Trigger>
+
+						<Select.Trigger>open</Select.Trigger>
 						<Select.Content>
-							<Select.Item onclick={() => (status = 'NORMAL')} value="NORMAL" label="Default" />
-							<Select.Item
-								onclick={() => (status = 'FAVORITED')}
-								value="FAVORITED"
-								label="Favorited"
-							/>
-							<Select.Item
-								onclick={() => (status = 'ARCHIVED')}
-								value="ARCHIVED"
-								label="Archived"
-							/>
-							<Select.Item onclick={() => (status = 'DELETED')} value="DELETED" label="Deleted" />
+							<Select.Item value="NORMAL" label="Default" />
+							<Select.Item value="FAVORITED" label="Favorited" />
+							<Select.Item value="ARCHIVED" label="Archived" />
+							<Select.Item value="DELETED" label="Deleted" />
 						</Select.Content>
-					</Select.Root>
+					</Select.Root> -->
 
 					<input type="hidden" class="text-black" name="status" value={status} />
 				</div>

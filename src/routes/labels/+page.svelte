@@ -13,7 +13,7 @@
 
 <section class="my-4">
 	<div class="flex items-center justify-between">
-		<PageTitle>Manage Labels</PageTitle>
+		<PageTitle title="Manage Labels" />
 
 		<AddLabelform {form} />
 	</div>

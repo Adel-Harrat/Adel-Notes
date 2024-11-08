@@ -8,9 +8,7 @@
 </script>
 
 <section class="my-10">
-	<PageTitle>
-		Search results for "{data.searchQuery}"
-	</PageTitle>
+	<PageTitle title={`Search results for "${data.searchQuery}"`} />
 
 	{#if data.searchResults?.length === 0}
 		<NoNotes title="No results were found" />

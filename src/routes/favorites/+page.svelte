@@ -12,7 +12,7 @@
 </svelte:head>
 
 <section class="my-10">
-	<PageTitle>Your Favorites</PageTitle>
+	<PageTitle title="Your Favorites" />
 
 	{#if data.notes.length > 0}
 		<div class="grid grid-cols-4 gap-4">

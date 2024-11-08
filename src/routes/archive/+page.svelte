@@ -11,7 +11,7 @@
 </svelte:head>
 
 <section class="my-10">
-	<PageTitle>Your Archive</PageTitle>
+	<PageTitle title="Your Archive" />
 
 	{#if data.notes.length > 0}
 		<div class="grid grid-cols-4 gap-4">

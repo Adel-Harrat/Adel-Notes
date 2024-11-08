@@ -33,10 +33,19 @@
 >
 	<input type="hidden" name="id" value={id} />
 
+	<Button variant="destructive" type="submit" tabindex={3} disabled={isLoading}>
+		{#if isLoading}
+			<LoaderCircle class="size-5 animate-spin" />
+		{:else}
+			<span>Delete!</span>
+		{/if}
+	</Button>
+
+	<!-- 
 	<AlertDialog.Root bind:open={dialogOpen}>
-		<AlertDialog.Trigger class={buttonVariants({ variant: 'destructive' })}
-			>Delete</AlertDialog.Trigger
-		>
+		<AlertDialog.Trigger class={buttonVariants({ variant: 'destructive' })}>
+			Delete!!
+		</AlertDialog.Trigger>
 		<AlertDialog.Content>
 			<AlertDialog.Header>
 				<AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>
@@ -51,10 +60,10 @@
 					{#if isLoading}
 						<LoaderCircle class="size-5 animate-spin" />
 					{:else}
-						<span>Delete</span>
+						<span>Delete!</span>
 					{/if}
 				</Button>
 			</AlertDialog.Footer>
 		</AlertDialog.Content>
-	</AlertDialog.Root>
+	</AlertDialog.Root> -->
 </form>

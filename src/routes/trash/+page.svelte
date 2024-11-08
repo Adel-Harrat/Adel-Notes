@@ -35,7 +35,7 @@
 
 <section class="my-4">
 	<div class="flex items-center justify-between">
-		<PageTitle>Trash</PageTitle>
+		<PageTitle title="Trash" />
 
 		{#if data.notes.length > 0}
 			<AlertDialog.Root bind:open={dialogOpen}>

@@ -13,7 +13,7 @@
 </svelte:head>
 
 <section class="my-10">
-	<PageTitle>Our Notes</PageTitle>
+	<PageTitle title="Your Notes" />
 
 	<div class="grid grid-cols-4 gap-4">
 		<NewNoteCard {form} />

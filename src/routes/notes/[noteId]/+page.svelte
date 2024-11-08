@@ -51,9 +51,7 @@
 
 <section class="pt-8 flex flex-col">
 	<div class="flex items-center justify-between border-b border-muted -mt-4">
-		<PageTitle>
-			{data.note.title}
-		</PageTitle>
+		<PageTitle title={data.note.title} />
 
 		<a href="/notes/{data.note.id}/edit" class={buttonVariants()}>Edit Note</a>
 	</div>
