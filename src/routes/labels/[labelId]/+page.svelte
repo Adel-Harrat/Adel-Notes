@@ -16,7 +16,7 @@
 <section>
 	<PageTitle>
 		{#snippet title()}
-			Notes w/ ${data.label.name} label
+			Notes with {data.label.name} label
 		{/snippet}
 
 		{#snippet subTitle()}

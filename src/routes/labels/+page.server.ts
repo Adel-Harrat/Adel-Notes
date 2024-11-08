@@ -177,7 +177,7 @@ export const actions = {
 
 			return {
 				type: 'success',
-				message: `Updated from "${label.name}" to "${updatedLabel.name}".`
+				message: `Renamed to "${updatedLabel.name}".`
 			};
 		} catch {
 			return {

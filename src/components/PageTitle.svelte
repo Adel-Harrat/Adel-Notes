@@ -10,7 +10,7 @@
 </script>
 
 <div class="mb-5 flex flex-col gap-3">
-	<h1 class="text-3xl font-extrabold text-foreground">
+	<h1 class="text-xl md:text-3xl font-extrabold text-foreground">
 		{@render title()}
 	</h1>
 

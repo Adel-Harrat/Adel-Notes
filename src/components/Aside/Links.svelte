@@ -21,7 +21,7 @@
 	} = $props();
 </script>
 
-<section class="mt-12 flex items-center justify-center">
+<section class="mt-10 w-40 mx-auto overflow-hidden">
 	<ul class="flex flex-col gap-6">
 		<Link href="/">
 			<Lightbulb class="size-5" />
@@ -33,15 +33,15 @@
 			Favorites
 		</Link>
 
-		<div class="w-full">
-			<div class="flex items-center justify-between">
+		<div>
+			<div class="flex items-center">
 				<Link href="/labels">
 					<Layers class="size-5" />
 					Labels
 				</Link>
 
 				{#if labels.length}
-					<button onclick={() => (isLabelsMenuOpen = !isLabelsMenuOpen)} class="px-2 ml-3">
+					<button class="ml-4" onclick={() => (isLabelsMenuOpen = !isLabelsMenuOpen)}>
 						{#if isLabelsMenuOpen}
 							<ChevronUp class="size-5" />
 						{:else}
@@ -54,13 +54,13 @@
 			{#if labels.length}
 				{#if isLabelsMenuOpen}
 					<ul
-						class="flex flex-col mt-3 ml-3 items-start w-full *:text-sm *:text-muted-foreground"
+						class="flex flex-col mt-3 ml-3 items-start *:text-sm *:text-muted-foreground overflow-hidden relative"
 						transition:slide
 					>
 						{#each labels as label (label.id)}
 							<li>
 								<a
-									class="flex items-center gap-2 hover:text-primary transition-all ease-in-out duration-200 py-2 hover:ml-2 focus:text-primary focus:pl-2 outline-none"
+									class="flex items-center gap-2 hover:text-primary transition-all ease-in-out duration-200 py-2 hover:pl-2 focus:text-primary focus:pl-2 outline-none truncate"
 									href="/labels/{label.id}"
 								>
 									<Tags class="size-5" />

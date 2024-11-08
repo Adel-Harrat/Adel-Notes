@@ -61,7 +61,7 @@
 		<a href="/notes/{data.note.id}/edit" class={'ml-auto ' + buttonVariants()}>Edit Note</a>
 	</PageTitleWithButtons>
 
-	<div class="grid grid-cols-[2fr_1fr] gap-6 mt-6">
+	<div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 mt-6">
 		<div>
 			{#if data.note?.content?.length}
 				<div class="bg-muted min-h-52 shadow-inner rounded-lg p-5 text-base">

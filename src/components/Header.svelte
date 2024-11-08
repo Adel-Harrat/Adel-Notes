@@ -26,7 +26,7 @@
 	});
 </script>
 
-<header class="col-span-4 px-5 mt-10 flex items-center justify-between gap-3 z-0">
+<header class="col-span-4 px-5 mt-5 flex items-center justify-between gap-3 z-0">
 	<form method="GET" action="/search" class="w-1/2 relative">
 		<Input
 			placeholder="Search Notes"

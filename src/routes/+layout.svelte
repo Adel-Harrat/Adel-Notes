@@ -6,6 +6,10 @@
 	import { Toaster } from '$lib/components/ui/sonner/index.js';
 	import { browser } from '$app/environment';
 	import { toast } from 'svelte-sonner';
+	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
+	import Logo from '../components/Aside/Logo.svelte';
+	import { Button } from '$lib/components/ui/button';
+	import { AlignJustify } from 'lucide-svelte';
 
 	let { children, data } = $props();
 	const { img, name, nameFallback } = data.user;
@@ -25,15 +29,31 @@
 	<title>Adel Notes</title>
 </svelte:head>
 
-<section class="grid grid-cols-5 grid-rows-[50px_1fr]">
-	<Aside labels={data.labels} {isLabelsMenuOpen} />
+<section class="grid grid-cols-1 md:grid-cols-[250px_1fr]">
+	<div class="md:h-dvh hidden md:block md:fixed md:w-[250px]">
+		<ScrollArea class="h-full">
+			<Aside labels={data.labels} {isLabelsMenuOpen} />
+		</ScrollArea>
+	</div>
 
-	<Header img={img ?? ''} {name} {nameFallback} />
+	<div class="md:col-start-2">
+		<div class="md:hidden flex items-center justify-between px-5 mt-5">
+			<Logo />
 
-	<main class="col-span-4 px-5 pt-14">
-		<ModeWatcher />
-		{@render children?.()}
-	</main>
+			<Button size="icon" variant="secondary">
+				<AlignJustify class="!size-5" />
+			</Button>
+		</div>
+
+		<div class="hidden md:block">
+			<Header img={img ?? ''} {name} {nameFallback} />
+		</div>
+
+		<main class="px-5 py-5">
+			<ModeWatcher />
+			{@render children?.()}
+		</main>
+	</div>
 </section>
 
 <Toaster />

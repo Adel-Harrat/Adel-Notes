@@ -19,7 +19,7 @@
 	{/if}
 
 	{#if data.searchResults}
-		<div class="grid grid-cols-4 gap-4">
+		<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 			{#each data.searchResults as note}
 				<NoteCard {note} />
 			{/each}

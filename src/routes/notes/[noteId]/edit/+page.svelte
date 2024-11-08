@@ -73,7 +73,10 @@
 				{/snippet}
 			</PageTitle>
 
-			<a class={'ml-auto ' + buttonVariants({ variant: 'outline' })} href="/notes/{data.note?.id}">
+			<a
+				class={'md:ml-auto ' + buttonVariants({ variant: 'outline' })}
+				href="/notes/{data.note?.id}"
+			>
 				Cancel
 			</a>
 
@@ -86,7 +89,7 @@
 			</Button>
 		</PageTitleWithButtons>
 
-		<div class="grid grid-cols-[2fr_1fr] gap-8">
+		<div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-8">
 			<div class="space-y-4">
 				<div class="space-y-2">
 					<Label for="title">Note Title</Label>
@@ -96,6 +99,7 @@
 						id="title"
 						value={data.note?.title}
 						disabled={isLoading}
+						autocomplete="off"
 					/>
 				</div>
 

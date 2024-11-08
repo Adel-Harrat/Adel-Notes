@@ -24,17 +24,13 @@
 					{props.note.title}
 				</h2>
 
-				<div>
-					{#if props.note.status === 'FAVORITED'}
+				{#if props.note.status === 'FAVORITED'}
+					<div>
 						<Star class="size-4 fill-current text-yellow-500 dark:text-yellow-400" />
-					{:else if props.note.status === 'ARCHIVED'}
-						<Archive class="size-4" />
-					{:else if props.note.status === 'DELETED'}
-						<ArchiveX class="size-4 text-destructive" />
-					{/if}
-				</div>
+					</div>
+				{/if}
 			</div>
-			<p class="invisible group-hover:visible text-muted-foreground text-xs">
+			<p class="lg:invisible group-hover:visible text-muted-foreground text-xs">
 				About
 				<Time relative timestamp={props.note.createdAt} />
 			</p>

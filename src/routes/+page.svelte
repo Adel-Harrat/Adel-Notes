@@ -19,8 +19,9 @@
 		{/snippet}
 	</PageTitle>
 
-	<div class="grid grid-cols-4 gap-4">
+	<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
 		<NewNoteCard {form} />
+
 		{#each data.notes as note, _ (note.id)}
 			<div transition:fade>
 				<NoteCard {note} />
@@ -30,7 +31,4 @@
 </section>
 
 <!-- TODO:-->
-<!-- 1. Add default Image when user has none -->
 <!-- 3. Add custom error 500 and 404 pages  -->
-<!-- 4. Disbale new note button after clicking once -->
-<!-- 5. Redirect user to note details page -->
