@@ -10,8 +10,12 @@
 	<title>Archive</title>
 </svelte:head>
 
-<section class="my-10">
-	<PageTitle title="Your Archive" />
+<section>
+	<PageTitle>
+		{#snippet title()}
+			Your Archive
+		{/snippet}
+	</PageTitle>
 
 	{#if data.notes.length > 0}
 		<div class="grid grid-cols-4 gap-4">

@@ -33,9 +33,13 @@
 	<title>Trash</title>
 </svelte:head>
 
-<section class="my-4">
+<section>
 	<div class="flex items-center justify-between">
-		<PageTitle title="Trash" />
+		<PageTitle>
+			{#snippet title()}
+				Trash
+			{/snippet}
+		</PageTitle>
 
 		{#if data.notes.length > 0}
 			<AlertDialog.Root bind:open={dialogOpen}>

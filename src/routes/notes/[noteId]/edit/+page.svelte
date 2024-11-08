@@ -13,19 +13,13 @@
 	import { Checkbox } from '$lib/components/ui/checkbox';
 	import PageTitle from '../../../../components/PageTitle.svelte';
 	import * as Select from '$lib/components/ui/select/index.js';
+	import PageTitleWithButtons from '../../../../components/PageTitleWithButtons.svelte';
 
 	let { data, form }: { data: PageServerData; form: ActionData } = $props();
 
 	let isLoading = $state(false);
 
 	let status = $state(data.note.status);
-
-	let selected = $state({
-		value: data.note.status,
-		label: getStatusLabel(data.note.status)
-	});
-
-	$inspect(selected);
 
 	async function showFeedBack() {
 		if (form?.type === 'success') {
@@ -64,7 +58,7 @@
 	<title>Edit Note</title>
 </svelte:head>
 
-<section class="my-10">
+<section>
 	<form
 		class="space-y-4"
 		method="POST"
@@ -72,21 +66,25 @@
 			isLoading = true;
 		}}
 	>
-		<div class="flex items-center justify-between border-b border-muted -mt-6">
-			<PageTitle title="Edit Note" />
+		<PageTitleWithButtons>
+			<PageTitle>
+				{#snippet title()}
+					Edit Note
+				{/snippet}
+			</PageTitle>
 
-			<div class="flex items-center justify-end gap-4">
-				<a class={buttonVariants({ variant: 'outline' })} href="/notes/{data.note?.id}">Cancel</a>
+			<a class={'ml-auto ' + buttonVariants({ variant: 'outline' })} href="/notes/{data.note?.id}">
+				Cancel
+			</a>
 
-				<Button type="submit" disabled={isLoading}>
-					{#if isLoading}
-						<LoaderCircle class="size-5 animate-spin" />
-					{:else}
-						<span>Save Note</span>
-					{/if}
-				</Button>
-			</div>
-		</div>
+			<Button type="submit" disabled={isLoading}>
+				{#if isLoading}
+					<LoaderCircle class="size-5 animate-spin" />
+				{:else}
+					<span>Save Note</span>
+				{/if}
+			</Button>
+		</PageTitleWithButtons>
 
 		<div class="grid grid-cols-[2fr_1fr] gap-8">
 			<div class="space-y-4">

@@ -2,11 +2,8 @@ import prisma from '$lib/prisma';
 import { error, type Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from '../$types';
 import { NoteStatus } from '@prisma/client';
-import { kindeAuthClient, type SessionManager } from '@kinde-oss/kinde-auth-sveltekit';
 
-export const load: PageServerLoad = async ({ params, request }) => {
-	const loggedInUser = await kindeAuthClient.getUser(request as unknown as SessionManager);
-
+export const load: PageServerLoad = async ({ params, locals }) => {
 	const note = await prisma.note.findFirst({
 		where: {
 			id: params.noteId
@@ -15,7 +12,7 @@ export const load: PageServerLoad = async ({ params, request }) => {
 
 	const noteLabels = await prisma.label.findMany({
 		where: {
-			userId: loggedInUser.id,
+			userId: locals.userId,
 			id: {
 				in: note?.labels
 			}
@@ -24,7 +21,7 @@ export const load: PageServerLoad = async ({ params, request }) => {
 
 	const availableLabels = await prisma.label.findMany({
 		where: {
-			userId: loggedInUser.id
+			userId: locals.userId
 		},
 		orderBy: { createdAt: 'desc' }
 	});
@@ -43,9 +40,7 @@ export const load: PageServerLoad = async ({ params, request }) => {
 };
 
 export const actions = {
-	default: async ({ params, request }) => {
-		const loggedInUser = await kindeAuthClient.getUser(request as unknown as SessionManager);
-
+	default: async ({ params, request, locals }) => {
 		const data = await request.formData();
 		const title = data.get('title')?.toString() ?? 'Untitled note';
 		const content = data.get('content')?.toString();
@@ -57,7 +52,7 @@ export const actions = {
 		const note = await prisma.note.findFirst({
 			where: {
 				id: params.noteId,
-				userId: loggedInUser.id
+				userId: locals.userId
 			}
 		});
 

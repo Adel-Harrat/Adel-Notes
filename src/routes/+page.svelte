@@ -12,8 +12,12 @@
 	<title>Adel Notes</title>
 </svelte:head>
 
-<section class="my-10">
-	<PageTitle title="Your Notes" />
+<section>
+	<PageTitle>
+		{#snippet title()}
+			Your Notes
+		{/snippet}
+	</PageTitle>
 
 	<div class="grid grid-cols-4 gap-4">
 		<NewNoteCard {form} />

@@ -10,6 +10,7 @@
 	import { Label } from '$lib/components/ui/label';
 	import PageTitle from '../../../components/PageTitle.svelte';
 	import StatusBadge from '../../../components/StatusBadge.svelte';
+	import PageTitleWithButtons from '../../../components/PageTitleWithButtons.svelte';
 
 	let { data, form }: { data: PageServerData; form: ActionData } = $props();
 
@@ -49,12 +50,16 @@
 	<title>Note Details</title>
 </svelte:head>
 
-<section class="pt-8 flex flex-col">
-	<div class="flex items-center justify-between border-b border-muted -mt-4">
-		<PageTitle title={data.note.title} />
+<section class="flex flex-col">
+	<PageTitleWithButtons>
+		<PageTitle>
+			{#snippet title()}
+				{data.note.title}
+			{/snippet}
+		</PageTitle>
 
-		<a href="/notes/{data.note.id}/edit" class={buttonVariants()}>Edit Note</a>
-	</div>
+		<a href="/notes/{data.note.id}/edit" class={'ml-auto ' + buttonVariants()}>Edit Note</a>
+	</PageTitleWithButtons>
 
 	<div class="grid grid-cols-[2fr_1fr] gap-6 mt-6">
 		<div>

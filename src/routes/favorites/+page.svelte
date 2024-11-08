@@ -11,8 +11,12 @@
 	<title>Favorites</title>
 </svelte:head>
 
-<section class="my-10">
-	<PageTitle title="Your Favorites" />
+<section>
+	<PageTitle>
+		{#snippet title()}
+			Your Favorites
+		{/snippet}
+	</PageTitle>
 
 	{#if data.notes.length > 0}
 		<div class="grid grid-cols-4 gap-4">

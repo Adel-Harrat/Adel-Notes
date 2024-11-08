@@ -7,6 +7,12 @@ declare global {
 		// interface PageData {}
 		// interface PageState {}
 		// interface Platform {}
+		interface Locals {
+			userId: string | undefined;
+			userName: string | undefined;
+			userImg: string | undefined;
+			userNameFallback: string | undefined;
+		}
 	}
 }
 

@@ -3,9 +3,8 @@ import { kindeAuthClient, type SessionManager } from '@kinde-oss/kinde-auth-svel
 import type { PageServerLoad } from '../$types';
 import { redirect } from '@sveltejs/kit';
 
-export const load: PageServerLoad = async ({ url, request }) => {
+export const load: PageServerLoad = async ({ url, locals }) => {
 	const searchQuery = url.searchParams.get('q') ?? '';
-	const loggedInUser = await kindeAuthClient.getUser(request as unknown as SessionManager);
 
 	if (searchQuery.trim() === '') {
 		redirect(303, '/');
@@ -20,14 +19,14 @@ export const load: PageServerLoad = async ({ url, request }) => {
 							contains: searchQuery,
 							mode: 'insensitive'
 						},
-						userId: loggedInUser.id
+						userId: locals.userId
 					},
 					{
 						content: {
 							contains: searchQuery,
 							mode: 'insensitive'
 						},
-						userId: loggedInUser.id
+						userId: locals.userId
 					}
 				]
 			},

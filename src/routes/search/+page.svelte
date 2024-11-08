@@ -7,8 +7,12 @@
 	let { data }: { data: PageServerData } = $props();
 </script>
 
-<section class="my-10">
-	<PageTitle title={`Search results for "${data.searchQuery}"`} />
+<section>
+	<PageTitle>
+		{#snippet title()}
+			Search results for `{data.searchQuery}`
+		{/snippet}
+	</PageTitle>
 
 	{#if data.searchResults?.length === 0}
 		<NoNotes title="No results were found" />

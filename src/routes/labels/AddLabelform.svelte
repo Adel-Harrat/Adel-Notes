@@ -51,7 +51,8 @@
 								name="name"
 								id="name"
 								placeholder="Name of label"
-								value={form?.data?.name ?? ''}
+								value={form?.name ?? ''}
+								autocomplete="off"
 							/>
 						</div>
 

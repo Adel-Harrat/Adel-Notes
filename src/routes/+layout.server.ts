@@ -3,7 +3,7 @@ import { kindeAuthClient, type SessionManager } from '@kinde-oss/kinde-auth-svel
 import type { RequestEvent } from '@sveltejs/kit';
 import { redirect } from '@sveltejs/kit';
 
-export async function load({ request }: RequestEvent) {
+export async function load({ request, locals }: RequestEvent) {
 	const isAuthenticated = await kindeAuthClient.isAuthenticated(
 		request as unknown as SessionManager
 	);
@@ -12,11 +12,9 @@ export async function load({ request }: RequestEvent) {
 		redirect(307, '/api/auth/register');
 	}
 
-	const user = await kindeAuthClient.getUser(request as unknown as SessionManager);
-
 	const labels = await prisma.label.findMany({
 		where: {
-			userId: user.id
+			userId: locals.userId
 		},
 		orderBy: {
 			createdAt: 'desc'
@@ -24,12 +22,11 @@ export async function load({ request }: RequestEvent) {
 	});
 
 	return {
-		isAuthenticated,
 		user: {
-			name: `${user?.given_name ?? ''} ${user?.family_name ?? ''}`.trim() || user.email,
-			nameFallback: `${(user?.given_name?.[0] || '').toUpperCase()}${(user?.family_name?.[0] || '').toUpperCase()}`,
-			img: user.picture,
-			id: user.id
+			id: locals.userId,
+			name: locals.userName,
+			nameFallback: locals.userNameFallback,
+			img: locals.userImg
 		},
 		labels
 	};

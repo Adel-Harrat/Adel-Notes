@@ -2,13 +2,11 @@ import { kindeAuthClient, type SessionManager } from '@kinde-oss/kinde-auth-svel
 import type { Actions, PageServerLoad } from './$types';
 import prisma from '$lib/prisma';
 
-export const load: PageServerLoad = async ({ request }) => {
-	const loggedInUser = await kindeAuthClient.getUser(request as unknown as SessionManager);
-
+export const load: PageServerLoad = async ({ locals }) => {
 	try {
 		const labels = await prisma.label.findMany({
 			where: {
-				userId: loggedInUser.id
+				userId: locals.userId
 			},
 			orderBy: { createdAt: 'desc' }
 		});
@@ -25,7 +23,7 @@ export const load: PageServerLoad = async ({ request }) => {
 };
 
 export const actions = {
-	create: async ({ request }) => {
+	create: async ({ locals, request }) => {
 		const formData = await request.formData();
 		const name = formData.get('name')?.toString() ?? '';
 
@@ -39,13 +37,30 @@ export const actions = {
 			};
 		}
 
-		const loggedInUser = await kindeAuthClient.getUser(request as unknown as SessionManager);
-
 		try {
+			const isLabelUnique = !(await prisma.label.findFirst({
+				where: {
+					name: {
+						equals: name,
+						mode: 'insensitive'
+					},
+					userId: locals.userId
+				}
+			}));
+
+			if (!isLabelUnique) {
+				return {
+					action: 'create',
+					type: 'error',
+					message: `Label ${name} already exists`,
+					name
+				};
+			}
+
 			const label = await prisma.label.create({
 				data: {
 					name,
-					userId: loggedInUser.id
+					userId: locals.userId!
 				}
 			});
 
@@ -62,16 +77,15 @@ export const actions = {
 		}
 	},
 
-	delete: async ({ request }) => {
+	delete: async ({ request, locals }) => {
 		const formData = await request.formData();
 		const labelId = formData.get('id')?.toString() ?? '';
-		const loggedInUser = await kindeAuthClient.getUser(request as unknown as SessionManager);
 
 		try {
 			const label = await prisma.label.findFirst({
 				where: {
 					id: labelId,
-					userId: loggedInUser.id
+					userId: locals.userId
 				}
 			});
 
@@ -84,7 +98,7 @@ export const actions = {
 
 			const notes = await prisma.note.findMany({
 				where: {
-					userId: loggedInUser.id,
+					userId: locals.userId,
 					labels: {
 						has: labelId
 					}
@@ -92,8 +106,6 @@ export const actions = {
 			});
 
 			if (notes.length > 0) {
-				console.log('Cannot delete label with notes.');
-
 				return {
 					action: 'delete',
 					type: 'error',
@@ -120,11 +132,10 @@ export const actions = {
 		}
 	},
 
-	update: async ({ request }) => {
+	update: async ({ request, locals }) => {
 		const formData = await request.formData();
 		const name = formData.get('name')?.toString() ?? '';
 		const labelId = formData.get('id')?.toString() ?? '';
-		const loggedInUser = await kindeAuthClient.getUser(request as unknown as SessionManager);
 
 		if (name.length < 3) {
 			return {
@@ -137,7 +148,7 @@ export const actions = {
 			const label = await prisma.label.findFirst({
 				where: {
 					id: labelId,
-					userId: loggedInUser.id
+					userId: locals.userId
 				}
 			});
 

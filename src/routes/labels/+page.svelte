@@ -1,5 +1,7 @@
 <script lang="ts">
+	import NoNotes from '../../components/NoNotes.svelte';
 	import PageTitle from '../../components/PageTitle.svelte';
+	import PageTitleWithButtons from '../../components/PageTitleWithButtons.svelte';
 	import type { ActionData, PageServerData } from './$types';
 	import AddLabelform from './AddLabelform.svelte';
 	import Label from './Label.svelte';
@@ -11,20 +13,24 @@
 	<title>Labels</title>
 </svelte:head>
 
-<section class="my-4">
-	<div class="flex items-center justify-between">
-		<PageTitle title="Manage Labels" />
+<section>
+	<PageTitleWithButtons withBorder={false}>
+		<PageTitle>
+			{#snippet title()}
+				Manage Labels
+			{/snippet}
+		</PageTitle>
 
 		<AddLabelform {form} />
-	</div>
+	</PageTitleWithButtons>
 
-	<section class="flex items-center gap-2 flex-wrap">
-		{#if data?.labels?.length === 0}
-			<p>No labels were found</p>
-		{:else}
+	{#if data?.labels?.length === 0}
+		<NoNotes title="No labels were found" />
+	{:else}
+		<div class="flex items-center gap-2 flex-wrap">
 			{#each data?.labels ?? [] as label (label.id)}
 				<Label {...label} />
 			{/each}
-		{/if}
-	</section>
+		</div>
+	{/if}
 </section>

@@ -3,15 +3,14 @@ import { kindeAuthClient, type SessionManager } from '@kinde-oss/kinde-auth-svel
 import type { PageServerLoad } from './$types';
 import { error } from '@sveltejs/kit';
 
-export const load: PageServerLoad = async ({ params, request }) => {
-	const loggedInUser = await kindeAuthClient.getUser(request as unknown as SessionManager);
+export const load: PageServerLoad = async ({ params, locals }) => {
 	const labelId = params.labelId;
 
 	try {
 		const label = await prisma.label.findFirst({
 			where: {
 				id: labelId,
-				userId: loggedInUser.id
+				userId: locals.userId
 			}
 		});
 
@@ -21,7 +20,7 @@ export const load: PageServerLoad = async ({ params, request }) => {
 
 		const notes = await prisma.note.findMany({
 			where: {
-				userId: loggedInUser.id,
+				userId: locals.userId,
 				labels: {
 					has: labelId
 				}

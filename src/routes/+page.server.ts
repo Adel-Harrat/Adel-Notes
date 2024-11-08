@@ -1,15 +1,11 @@
 import prisma from '$lib/prisma';
-import { kindeAuthClient, type SessionManager } from '@kinde-oss/kinde-auth-sveltekit';
 import { type RequestEvent } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ request }) => {
-	// Get Current LoggedIn User
-	const loggedInUser = await kindeAuthClient.getUser(request as unknown as SessionManager);
-
+export const load: PageServerLoad = async ({ locals }) => {
 	const notes = await prisma.note.findMany({
 		where: {
-			userId: loggedInUser.id,
+			userId: locals.userId,
 			status: {
 				in: ['NORMAL', 'FAVORITED']
 			}
@@ -41,18 +37,15 @@ function getRandomPlaceholder() {
 }
 
 export const actions = {
-	addNewNote: async ({ request }: RequestEvent) => {
+	addNewNote: async ({ request, locals }: RequestEvent) => {
 		try {
 			const randomImage = getRandomPlaceholder();
-
-			// Get User Id
-			const loggedInUser = await kindeAuthClient.getUser(request as unknown as SessionManager);
 
 			await prisma.note.create({
 				data: {
 					title: 'Untitled Note',
 					image: randomImage as string,
-					userId: loggedInUser.id
+					userId: locals.userId!
 				}
 			});
 

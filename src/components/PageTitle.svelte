@@ -1,7 +1,22 @@
 <script lang="ts">
-	let { title } = $props();
+	import type { Snippet } from 'svelte';
+
+	interface Props {
+		title: Snippet;
+		subTitle?: Snippet;
+	}
+
+	let { title, subTitle }: Props = $props();
 </script>
 
-<h1 class="text-3xl font-extrabold text-foreground my-6">
-	{title}
-</h1>
+<div class="mb-5 flex flex-col gap-3">
+	<h1 class="text-3xl font-extrabold text-foreground">
+		{@render title()}
+	</h1>
+
+	{#if subTitle}
+		<p class="flex items-center gap-2 text-sm text-muted-foreground">
+			{@render subTitle?.()}
+		</p>
+	{/if}
+</div>

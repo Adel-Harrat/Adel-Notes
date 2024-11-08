@@ -1,16 +1,12 @@
 import prisma from '$lib/prisma';
 import { kindeAuthClient, type SessionManager } from '@kinde-oss/kinde-auth-sveltekit';
-import type { RequestEvent } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import type { Actions } from './$types';
 
-export const load: PageServerLoad = async ({ request }: RequestEvent) => {
-	// Get Current LoggedIn User
-	const loggedInUser = await kindeAuthClient.getUser(request as unknown as SessionManager);
-
+export const load: PageServerLoad = async ({ locals }) => {
 	const notes = await prisma.note.findMany({
 		where: {
-			userId: loggedInUser.id,
+			userId: locals.userId,
 			status: 'DELETED'
 		},
 		orderBy: {
@@ -22,14 +18,12 @@ export const load: PageServerLoad = async ({ request }: RequestEvent) => {
 };
 
 export const actions = {
-	clearTrash: async ({ request }) => {
+	clearTrash: async ({ locals }) => {
 		try {
-			const loggedInUser = await kindeAuthClient.getUser(request as unknown as SessionManager);
-
 			await prisma.note.deleteMany({
 				where: {
 					status: 'DELETED',
-					userId: loggedInUser.id
+					userId: locals.userId
 				}
 			});
 
@@ -43,10 +37,5 @@ export const actions = {
 				message: 'Something went wrong!'
 			};
 		}
-
-		return {
-			type: 'success',
-			message: 'Trash Cleared!'
-		};
 	}
 } satisfies Actions;

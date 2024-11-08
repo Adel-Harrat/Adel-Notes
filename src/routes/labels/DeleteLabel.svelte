@@ -7,7 +7,7 @@
 	import * as AlertDialog from '$lib/components/ui/alert-dialog/index.js';
 
 	let { id }: { id: unknown } = $props();
-	let isLoading = $state(false);
+	let isDeleting = $state(false);
 	let dialogOpen = $state(false);
 </script>
 
@@ -16,17 +16,17 @@
 	action="/labels?/delete"
 	method="POST"
 	use:enhance={() => {
-		isLoading = true;
+		isDeleting = true;
 
 		return async ({ result }) => {
 			if ('data' in result && result.data?.type === 'success') {
 				dialogOpen = false;
-				isLoading = false;
+				isDeleting = false;
 				toast(result.data?.message as string);
 				await invalidateAll();
 			} else if ('data' in result && result.data?.type === 'error') {
 				dialogOpen = false;
-				isLoading = false;
+				isDeleting = false;
 				toast(result.data?.message as string);
 			}
 		};
@@ -35,7 +35,7 @@
 	<input type="hidden" name="id" value={id} />
 
 	<AlertDialog.Root bind:open={dialogOpen}>
-		<AlertDialog.Trigger class={buttonVariants({ variant: 'destructive' })}>
+		<AlertDialog.Trigger tabindex={5} class={buttonVariants({ variant: 'destructive' })}>
 			Delete
 		</AlertDialog.Trigger>
 		<AlertDialog.Content>
@@ -47,15 +47,15 @@
 				</AlertDialog.Description>
 			</AlertDialog.Header>
 			<AlertDialog.Footer>
-				<AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
+				<AlertDialog.Cancel tabindex={6}>Cancel</AlertDialog.Cancel>
 				<Button
 					form="delete-form"
 					variant="destructive"
 					type="submit"
-					tabindex={3}
-					disabled={isLoading}
+					tabindex={7}
+					disabled={isDeleting}
 				>
-					{#if isLoading}
+					{#if isDeleting}
 						<LoaderCircle class="size-5 animate-spin" />
 					{:else}
 						<span>Confirm</span>
