@@ -4,6 +4,7 @@
 	import type { ActionData, PageServerData } from './$types';
 	import { fade } from 'svelte/transition';
 	import PageTitle from '../components/PageTitle.svelte';
+	import { error } from '@sveltejs/kit';
 
 	let { data, form }: { data: PageServerData; form: ActionData } = $props();
 </script>
