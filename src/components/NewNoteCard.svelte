@@ -10,10 +10,11 @@
 	$effect(() => {
 		if (form?.type === 'success') {
 			toast(form?.message);
-			isLoading = false;
 		} else if (form?.type === 'error') {
 			toast(form?.message);
 		}
+
+		isLoading = false;
 	});
 </script>
 
