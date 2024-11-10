@@ -41,6 +41,20 @@ export const actions = {
 		try {
 			const randomImage = getRandomPlaceholder();
 
+			const notesCount = await prisma.note.count({
+				where: {
+					userId: locals.userId
+				}
+			});
+
+			if (notesCount > 10) {
+				return {
+					type: 'error',
+					message:
+						'You have reached the maximum number of notes (10). Please delete some notes if you want to add a new one.'
+				};
+			}
+
 			await prisma.note.create({
 				data: {
 					title: 'Untitled Note',
