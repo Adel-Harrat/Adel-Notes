@@ -27,6 +27,20 @@ export const actions = {
 		const formData = await request.formData();
 		const name = formData.get('name')?.toString() ?? '';
 
+		const labelsCount = await prisma.label.count({
+			where: {
+				userId: locals.userId
+			}
+		});
+
+		if (labelsCount > 10) {
+			return {
+				type: 'error',
+				message:
+					'You have reached the maximum number of labels (10). Please delete some labels if you want to add a new one.'
+			};
+		}
+
 		if (name.length < 3) {
 			return {
 				type: 'error',
