@@ -17,7 +17,7 @@
 <div>
 	<Dialog.Root bind:open={dialogOpen}>
 		<Dialog.Trigger>
-			<Badge>{name}</Badge>
+			<Badge variant="secondary">{name}</Badge>
 		</Dialog.Trigger>
 		<Dialog.Content>
 			<Dialog.Header>

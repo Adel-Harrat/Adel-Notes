@@ -15,7 +15,7 @@
 	</h1>
 
 	{#if subTitle}
-		<p class="flex items-center gap-2 text-sm text-muted-foreground">
+		<p class="flex items-center gap-2 text-sm text-muted-foreground -mb-5">
 			{@render subTitle?.()}
 		</p>
 	{/if}

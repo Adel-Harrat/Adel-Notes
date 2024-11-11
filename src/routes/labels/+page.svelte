@@ -14,10 +14,14 @@
 </svelte:head>
 
 <section>
-	<PageTitleWithButtons withBorder={false}>
+	<PageTitleWithButtons withBorder={data?.labels?.length === 0 ? false : true}>
 		<PageTitle>
 			{#snippet title()}
 				Manage Labels
+			{/snippet}
+
+			{#snippet subTitle()}
+				Lorem ipsum dolor sit amet consectetur adipisicing elit
 			{/snippet}
 		</PageTitle>
 
@@ -27,7 +31,7 @@
 	{#if data?.labels?.length === 0}
 		<NoNotes title="No labels were found" />
 	{:else}
-		<div class="flex items-center gap-2 flex-wrap">
+		<div class="flex items-center gap-2 flex-wrap mt-5">
 			{#each data?.labels ?? [] as label (label.id)}
 				<Label {...label} />
 			{/each}
