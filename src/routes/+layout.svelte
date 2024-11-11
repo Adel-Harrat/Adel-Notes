@@ -12,6 +12,8 @@
 	import { AlignJustify } from 'lucide-svelte';
 	import * as Drawer from '$lib/components/ui/drawer/index.js';
 	import Links from '../components/Aside/Links.svelte';
+	import ModeToggler from '../components/ModeToggler.svelte';
+	import SearchForm from '../components/SearchForm.svelte';
 
 	let { children, data } = $props();
 	const { img, name, nameFallback } = data.user;
@@ -56,9 +58,17 @@
 						<Drawer.Description>Save your next billion dollars idea</Drawer.Description>
 					</Drawer.Header>
 
-					<div class="pb-20">
+					<div class="mb-5">
 						<Links labels={data.labels} {isLabelsMenuOpen} {closeMobileDrawer} />
 					</div>
+
+					<Drawer.Footer>
+						<div class="flex items-center justify-between gap-4">
+							<ModeToggler />
+
+							<SearchForm onSearch={closeMobileDrawer} />
+						</div>
+					</Drawer.Footer>
 				</Drawer.Content>
 			</Drawer.Root>
 		</div>
