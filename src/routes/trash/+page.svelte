@@ -10,6 +10,7 @@
 	import * as AlertDialog from '$lib/components/ui/alert-dialog';
 	import { LoaderCircle } from 'lucide-svelte';
 	import PageTitle from '../../components/PageTitle.svelte';
+	import PageTitleWithButtons from '../../components/PageTitleWithButtons.svelte';
 
 	let isLoading = $state(false);
 	let dialogOpen = $state(false);
@@ -34,7 +35,7 @@
 </svelte:head>
 
 <section>
-	<div class="flex items-center justify-between">
+	<PageTitleWithButtons withBorder={data.notes.length > 0 ? false : false}>
 		<PageTitle>
 			{#snippet title()}
 				Trash
@@ -77,10 +78,10 @@
 				</AlertDialog.Content>
 			</AlertDialog.Root>
 		{/if}
-	</div>
+	</PageTitleWithButtons>
 
 	{#if data.notes.length > 0}
-		<div class="grid grid-cols-4 gap-4">
+		<div class="grid grid-cols-4 gap-4 mt-5">
 			{#each data.notes as note}
 				<NoteCard {note} />
 			{/each}

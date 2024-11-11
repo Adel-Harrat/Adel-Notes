@@ -19,7 +19,7 @@
 	</PageTitle>
 
 	{#if data.notes.length > 0}
-		<div class="grid grid-cols-4 gap-4">
+		<div class="grid grid-cols-4 gap-4 mt-5">
 			{#each data.notes as note}
 				<NoteCard {note} />
 			{/each}
