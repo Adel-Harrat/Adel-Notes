@@ -26,19 +26,28 @@
 <section class="mt-10 px-10 md:w-40 mx-auto overflow-hidden">
 	<ul class="flex flex-col gap-6">
 		<Link onclick={closeMobileDrawer} href="/">
-			<Lightbulb class="size-5" />
+			<div>
+				<Lightbulb class="size-5" />
+			</div>
+
 			Home
 		</Link>
 
 		<Link onclick={closeMobileDrawer} href="/favorites">
-			<Star class="size-5" />
+			<div>
+				<Star class="size-5" />
+			</div>
+
 			Favorites
 		</Link>
 
 		<div>
 			<div class="flex items-center">
 				<Link onclick={closeMobileDrawer} href="/labels">
-					<Layers class="size-5" />
+					<div>
+						<Layers class="size-5" />
+					</div>
+
 					Labels
 				</Link>
 
@@ -77,12 +86,18 @@
 		</div>
 
 		<Link onclick={closeMobileDrawer} href="/archive">
-			<Archive class="size-5" />
+			<div>
+				<Archive class="size-5" />
+			</div>
+
 			Archive
 		</Link>
 
 		<Link onclick={closeMobileDrawer} href="/trash">
-			<ArchiveX class="size-5" />
+			<div>
+				<ArchiveX class="size-5" />
+			</div>
+
 			Trash
 		</Link>
 	</ul>

@@ -19,10 +19,6 @@
 			{#snippet title()}
 				Manage Labels
 			{/snippet}
-
-			{#snippet subTitle()}
-				Lorem ipsum dolor sit amet consectetur adipisicing elit
-			{/snippet}
 		</PageTitle>
 
 		<AddLabelform {form} />

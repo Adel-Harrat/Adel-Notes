@@ -58,7 +58,9 @@
 			{/snippet}
 		</PageTitle>
 
-		<a href="/notes/{data.note.id}/edit" class={'ml-auto ' + buttonVariants()}>Edit Note</a>
+		<a href="/notes/{data.note.id}/edit" class={'ml-auto ' + buttonVariants({ size: 'sm' })}
+			>Edit Note</a
+		>
 	</PageTitleWithButtons>
 
 	<div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-6 mt-6">

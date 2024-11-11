@@ -73,20 +73,22 @@
 				{/snippet}
 			</PageTitle>
 
-			<a
-				class={'md:ml-auto ' + buttonVariants({ variant: 'outline' })}
-				href="/notes/{data.note?.id}"
-			>
-				Cancel
-			</a>
+			<div class="flex items-center gap-5 justify-between">
+				<a
+					class={'md:ml-auto ' + buttonVariants({ variant: 'outline', size: 'sm' })}
+					href="/notes/{data.note?.id}"
+				>
+					Cancel
+				</a>
 
-			<Button type="submit" disabled={isLoading}>
-				{#if isLoading}
-					<LoaderCircle class="size-5 animate-spin" />
-				{:else}
-					<span>Save Note</span>
-				{/if}
-			</Button>
+				<Button type="submit" disabled={isLoading} size="sm">
+					{#if isLoading}
+						<LoaderCircle class="size-5 animate-spin" />
+					{:else}
+						<span>Save Note</span>
+					{/if}
+				</Button>
+			</div>
 		</PageTitleWithButtons>
 
 		<div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] gap-8">
