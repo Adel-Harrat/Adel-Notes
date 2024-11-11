@@ -8,8 +8,10 @@
 	import { toast } from 'svelte-sonner';
 	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
 	import Logo from '../components/Aside/Logo.svelte';
-	import { Button } from '$lib/components/ui/button';
+	import { Button, buttonVariants } from '$lib/components/ui/button';
 	import { AlignJustify } from 'lucide-svelte';
+	import * as Drawer from '$lib/components/ui/drawer/index.js';
+	import Links from '../components/Aside/Links.svelte';
 
 	let { children, data } = $props();
 	const { img, name, nameFallback } = data.user;
@@ -23,6 +25,10 @@
 	});
 
 	let isLabelsMenuOpen = $derived(data.labels.length > 4 ? false : true);
+	let isMobileDrawerOpen = $state(false);
+	let closeMobileDrawer = () => {
+		isMobileDrawerOpen = false;
+	};
 </script>
 
 <svelte:head>
@@ -40,9 +46,21 @@
 		<div class="md:hidden flex items-center justify-between px-5 mt-5">
 			<Logo />
 
-			<Button size="icon" variant="secondary">
-				<AlignJustify class="!size-5" />
-			</Button>
+			<Drawer.Root bind:open={isMobileDrawerOpen}>
+				<Drawer.Trigger class={buttonVariants({ variant: 'secondary', size: 'icon' })}>
+					<AlignJustify class="!size-5" />
+				</Drawer.Trigger>
+				<Drawer.Content>
+					<Drawer.Header>
+						<Drawer.Title>Adel Notes</Drawer.Title>
+						<Drawer.Description>Save your next billion dollars idea</Drawer.Description>
+					</Drawer.Header>
+
+					<div class="pb-20">
+						<Links labels={data.labels} {isLabelsMenuOpen} {closeMobileDrawer} />
+					</div>
+				</Drawer.Content>
+			</Drawer.Root>
 		</div>
 
 		<div class="hidden md:block">

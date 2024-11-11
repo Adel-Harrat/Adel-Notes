@@ -14,28 +14,30 @@
 
 	let {
 		labels,
-		isLabelsMenuOpen
+		isLabelsMenuOpen,
+		closeMobileDrawer
 	}: {
 		labels: { id: string; name: string }[];
 		isLabelsMenuOpen: boolean;
+		closeMobileDrawer?: () => void;
 	} = $props();
 </script>
 
-<section class="mt-10 w-40 mx-auto overflow-hidden">
+<section class="mt-10 px-10 md:w-40 mx-auto overflow-hidden">
 	<ul class="flex flex-col gap-6">
-		<Link href="/">
+		<Link onclick={closeMobileDrawer} href="/">
 			<Lightbulb class="size-5" />
 			Home
 		</Link>
 
-		<Link href="/favorites">
+		<Link onclick={closeMobileDrawer} href="/favorites">
 			<Star class="size-5" />
 			Favorites
 		</Link>
 
 		<div>
 			<div class="flex items-center">
-				<Link href="/labels">
+				<Link onclick={closeMobileDrawer} href="/labels">
 					<Layers class="size-5" />
 					Labels
 				</Link>
@@ -60,6 +62,7 @@
 						{#each labels as label (label.id)}
 							<li>
 								<a
+									onclick={closeMobileDrawer}
 									class="flex items-center gap-2 hover:text-primary transition-all ease-in-out duration-200 py-2 hover:pl-2 focus:text-primary focus:pl-2 outline-none truncate"
 									href="/labels/{label.id}"
 								>
@@ -73,12 +76,12 @@
 			{/if}
 		</div>
 
-		<Link href="/archive">
+		<Link onclick={closeMobileDrawer} href="/archive">
 			<Archive class="size-5" />
 			Archive
 		</Link>
 
-		<Link href="/trash">
+		<Link onclick={closeMobileDrawer} href="/trash">
 			<ArchiveX class="size-5" />
 			Trash
 		</Link>
